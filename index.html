@@ -1,12 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
     <title>Dynamics Tests</title>
 </head>
-<body>
+<body onkeydown="keyPress(event)" onkeyup="keyRelease(event)">
+    <div class='box' id='box'></div>
+    <div class='grid-container;' style='color:white;'>
+        <h1 class='lefty' id='left'>Left</h1>
+        <h1 class='righty' id='right'>Right</h1>
+        <h1 class='up' id='up'>Up</h1>
+        <h1 class='down' id='down'>Down</h1>
+        <h1 class='bonus' id='bonus'>Bonus</h1>
+    </div>
     
+    <script>
+        var sprite = document.getElementById('box');
+        var positionL = 0;
+
+        var rightKey = false;
+        var leftKey = false;
+        var upKey = false;
+        var downKey = false;
+        var bonusKey = false;
+        
+        var clockTick = new CustomEvent('build');
+
+        clockFreq = setInterval(function() {
+            sprite.dispatchEvent(clockTick);
+        }, 50);
+
+        sprite.addEventListener('build', function(e) {
+            sprite.style.left = positionL + 'px';
+            positionL += 1;
+            document.getElementById('left').style.backgroundColor = leftKey?'white':'black';
+            document.getElementById('right').style.backgroundColor = rightKey?'white':'black';
+            document.getElementById('up').style.backgroundColor = upKey?'white':'black';
+            document.getElementById('down').style.backgroundColor = downKey?'white':'black';
+            document.getElementById('bonus').style.backgroundColor = bonusKey?'white':'black';
+        })
+
+        function keyPress(event) {
+            if ((event.key == 'a')||(event.key == 'A')||(event.key == 'ArrowLeft')) {
+                leftKey = true;
+            } else if ((event.key == 'd')||(event.key == 'D')||(event.key == 'ArrowRight')) {
+                rightKey = true;
+            }
+
+            if ((event.key == 'w')||(event.key == 'W')||(event.key == 'ArrowUp')||(event.key == ' ')) {
+                upKey = true;
+            } else if ((event.key == 's')||(event.key == 'S')||(event.key == 'ArrowDown')) {
+                downKey = true;
+            }
+
+            if ((event.key == 'f')||(event.key == 'F')||(event.key == 'Shift')) {
+                bonusKey = true;
+            }
+        }
+
+        function keyRelease(event) {
+            if ((event.key == 'a')||(event.key == 'A')||(event.key == 'ArrowLeft')) {
+                leftKey = false;
+            } else if ((event.key == 'd')||(event.key == 'D')||(event.key == 'ArrowRight')) {
+                rightKey = false;
+            }
+
+            if ((event.key == 'w')||(event.key == 'W')||(event.key == 'ArrowUp')||(event.key == ' ')) {
+                upKey = false;
+            } else if ((event.key == 's')||(event.key == 'S')||(event.key == 'ArrowDown')) {
+                downKey = false;
+            }
+
+            if ((event.key == 'f')||(event.key == 'F')||(event.key == 'Shift')) {
+                bonusKey = false;
+            }
+        }
+    
+    </script>
 </body>
 </html>
