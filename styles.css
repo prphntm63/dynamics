@@ -19,11 +19,12 @@ body {
     display: grid;
     background-color: white;
     grid-gap: 5px;
-    padding: 100px;
+    padding: 5px;
     grid-template-areas: 
         'bonus up bonus2'
         'lefty down righty';
-    
+    width:150px;
+    height:100px;
 }
 
 .up {

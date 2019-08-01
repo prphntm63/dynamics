@@ -11,12 +11,12 @@
 </head>
 <body onkeydown="keyPress(event)" onkeyup="keyRelease(event)">
     <div class='box' id='box'></div>
-    <div class='grid-container;' style='color:white;'>
-        <h1 class='lefty' id='left'>Left</h1>
-        <h1 class='righty' id='right'>Right</h1>
-        <h1 class='up' id='up'>Up</h1>
-        <h1 class='down' id='down'>Down</h1>
-        <h1 class='bonus' id='bonus'>Bonus</h1>
+    <div class='grid-container' style='color:white;'>
+        <div class='lefty' id='left'>Left</div>
+        <div class='righty' id='right'>Right</div>
+        <div class='up' id='up'>Up</div>
+        <div class='down' id='down'>Down</div>
+        <div class='bonus' id='bonus'>Bonus</div>
     </div>
     
     <script>
@@ -29,20 +29,20 @@
         var downKey = false;
         var bonusKey = false;
         
-        var clockTick = new CustomEvent('build');
+        var clockTick = new CustomEvent('clock');
 
         clockFreq = setInterval(function() {
             sprite.dispatchEvent(clockTick);
         }, 50);
 
-        sprite.addEventListener('build', function(e) {
+        sprite.addEventListener('clock', function(e) {
             sprite.style.left = positionL + 'px';
             positionL += 1;
-            document.getElementById('left').style.backgroundColor = leftKey?'white':'black';
-            document.getElementById('right').style.backgroundColor = rightKey?'white':'black';
-            document.getElementById('up').style.backgroundColor = upKey?'white':'black';
-            document.getElementById('down').style.backgroundColor = downKey?'white':'black';
-            document.getElementById('bonus').style.backgroundColor = bonusKey?'white':'black';
+            document.getElementById('left').style.backgroundColor = leftKey?'red':'black';
+            document.getElementById('right').style.backgroundColor = rightKey?'red':'black';
+            document.getElementById('up').style.backgroundColor = upKey?'red':'black';
+            document.getElementById('down').style.backgroundColor = downKey?'red':'black';
+            document.getElementById('bonus').style.backgroundColor = bonusKey?'yellow':'black';
         })
 
         function keyPress(event) {
