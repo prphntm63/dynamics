@@ -11,6 +11,7 @@
 </head>
 <body onkeydown="keyPress(event)" onkeyup="keyRelease(event)">
     <div class='box' id='box'></div>
+    <div class='block' id='block'></div>
     <div class='grid-container' style='color:white;'>
         <div class='lefty' id='left'>Left</div>
         <div class='righty' id='right'>Right</div>
@@ -21,63 +22,219 @@
     
     <script>
         var sprite = document.getElementById('box');
-        var positionL = 0;
+        var block = document.getElementById('block').getBoundingClientRect();
 
-        var rightKey = false;
-        var leftKey = false;
-        var upKey = false;
-        var downKey = false;
-        var bonusKey = false;
-        
-        var clockTick = new CustomEvent('clock');
+        var constants = {
+            animateInterval : 4,
+            windowWidth : window.innerWidth - 64,
+            jumpVelocity : 35,
+            accelX : 1.5,
+            decelX : 3,
+            accelY : 2,
+            maxVeloX : 20,
+            maxVeloY : 40,
+        }
 
-        clockFreq = setInterval(function() {
-            sprite.dispatchEvent(clockTick);
-        }, 50);
+        let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
 
-        sprite.addEventListener('clock', function(e) {
-            sprite.style.left = positionL + 'px';
-            positionL += 1;
-            document.getElementById('left').style.backgroundColor = leftKey?'red':'black';
-            document.getElementById('right').style.backgroundColor = rightKey?'red':'black';
-            document.getElementById('up').style.backgroundColor = upKey?'red':'black';
-            document.getElementById('down').style.backgroundColor = downKey?'red':'black';
-            document.getElementById('bonus').style.backgroundColor = bonusKey?'yellow':'black';
-        })
+        let x0v0 = [0,0];
+        let y0v0 = [0,0];
+        let frame = 0;
+        let clock = 0;
+        let onBlock = false;
+
+        var keys = {
+            rightKey : false,
+            leftKey : false,
+            upKey : false,
+            downKey : false,
+            bonusKey : false,
+            upKeyReset : 0,
+            xKeyReset : true
+        }
+
+        requestAnimationFrame(animate);
+
+        function animate(timestamp) {
+            var mario = sprite.getBoundingClientRect();
+            let windowHeight = mario.bottom + y0v0[0];
+
+            let xpre = x0v0[0];
+            let ypre = y0v0[0];
+
+            x0v0 = getPosX(x0v0);
+            y0v0 = getPosY(y0v0);
+
+            // console.log(mario.top + ' ' + mario.bottom + ', ' + block.top + ' ' + block.bottom  );
+
+            
+            if (mario.right > block.left && mario.left < block.left && mario.top < block.bottom && mario.bottom > block.top) {
+                x0v0 = [xpre-x0v0[1] / 2, 0];
+            } else if (mario.left < block.right && mario.right > block.right && mario.top < block.bottom && mario.bottom > block.top) {
+                x0v0 = [xpre-x0v0[1] / 2, 0];
+            } else if (mario.right >= block.left && mario.left <= block.right) {
+                console.log(mario.top + '<' + block.bottom + ', ' + mario.bottom + '>' + block.top);
+
+                if (mario.top < block.bottom && mario.bottom > block.top) {
+                    y0v0 = [ypre-y0v0[1] / 2, 0];
+                } else if (mario.bottom >= block.top && mario.top < block.bottom) {
+                    y0v0 = [windowHeight-block.top, 0];
+                    onBlock = true;
+                } else {
+                    onBlock = false;
+                }
+            }
+
+
+            sprite.style.left = x0v0[0] + 'px';
+            sprite.style.bottom = y0v0[0] + 'px';
+
+            if (keys.leftKey) {
+                sprite.style.transform = 'scaleX(-1)'
+            } else if (keys.rightKey) {
+                sprite.style.transform = 'scaleX(1)'
+            }
+
+            if (keys.downKey) {
+                sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+            } else if (y0v0[0] > 0 && !onBlock) {
+                sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+            } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
+                sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+            } else if (x0v0[1] == 0) {
+                sprite.style.backgroundImage = 'url("sprites/stand.gif")';
+            } else {
+                let animateTransition = clock % constants.animateInterval;
+                if (animateTransition == 0) {
+                    sprite.style.backgroundImage = walkSprites[frame%3];
+                    frame += 1;
+                }
+            }
+
+            document.getElementById('left').style.backgroundColor = keys.leftKey?'red':'black';
+            document.getElementById('right').style.backgroundColor = keys.rightKey?'red':'black';
+            document.getElementById('up').style.backgroundColor = keys.upKey?'red':'black';
+            document.getElementById('down').style.backgroundColor = keys.downKey?'red':'black';
+            document.getElementById('bonus').style.backgroundColor = keys.bonusKey?'yellow':'black';
+            requestAnimationFrame(animate);
+
+            clock += 1;
+        }
+
+        function getAccelX(x0v0) {
+            let v0 = x0v0[1];
+            if (keys.rightKey && (keys.xKeyReset)) {
+                ax = (v0 <= constants.maxVeloX) ? constants.accelX : 0;
+            } else if (keys.leftKey && (keys.xKeyReset)) {
+                ax = (v0 >= -constants.maxVeloX) ? -constants.accelX : 0;
+            } else if (v0 > 0 && (keys.xKeyReset)) {
+                ax = -constants.decelX;
+            } else if (v0 < 0 && (keys.xKeyReset)) {
+                ax = constants.decelX;
+            } else {
+                ax = 0;
+            }
+            return ax;
+        }
+
+        function getVeloX(x0v0) {
+            let ax = getAccelX(x0v0);
+            let vx = x0v0[1] + ax;
+            if (vx * x0v0[1] < 0) {
+                vx = 0;
+            }
+            return vx;
+        }
+
+        function getPosX(x0v0) {
+            let x0 = x0v0[0];
+            let ax = getAccelX(x0v0);
+            let vx = getVeloX(x0v0);
+            let posX = x0 + vx + ax;
+
+            if (posX <= 0) {
+                posX = x0v0[0];
+                vx = 0;
+            } else if (posX >= constants.windowWidth) {
+                posX = x0v0[0];
+                vx = 0;
+            }
+
+            return [Math.round(posX), vx] // x0v0
+        }
+
+        function getAccelY(y0v0) {
+            if (y0v0[0] <= 0) {
+                y0v0[0] = 0;
+                ay = 0;
+            } else if (y0v0[1] <= -constants.maxVeloY || onBlock) {
+                ay = 0;
+            } else {
+                ay = -constants.accelY;
+            }
+            return ay;
+        }
+
+        function getVeloY(y0v0) {
+            let ay = getAccelY(y0v0);
+            let vy = y0v0[1] + ay;
+            if (keys.upKey && (keys.upKeyReset < 2)) {
+                vy += constants.jumpVelocity / (keys.upKeyReset + 1);
+                keys.upKey = false;
+                keys.upKeyReset++;
+            }
+            return vy;
+        }
+
+        function getPosY(y0v0) {
+            let y0 = y0v0[0];
+            let vy = getVeloY(y0v0);
+            let ay = getAccelY(y0v0);
+            let posY = y0 + vy + ay;
+            if (posY <= 0 || onBlock) {
+                posY = 0;
+                vy = 0;
+                keys.upKeyReset = 0;
+                keys.xKeyReset = true;
+            } else {
+                keys.xKeyReset = false;
+            }
+            return([posY, vy]) // y0v0
+        }
 
         function keyPress(event) {
             if ((event.key == 'a')||(event.key == 'A')||(event.key == 'ArrowLeft')) {
-                leftKey = true;
+                keys.leftKey = true;
             } else if ((event.key == 'd')||(event.key == 'D')||(event.key == 'ArrowRight')) {
-                rightKey = true;
+                keys.rightKey = true;
             }
 
             if ((event.key == 'w')||(event.key == 'W')||(event.key == 'ArrowUp')||(event.key == ' ')) {
-                upKey = true;
+                keys.upKey = true;
             } else if ((event.key == 's')||(event.key == 'S')||(event.key == 'ArrowDown')) {
-                downKey = true;
+                keys.downKey = true;
             }
 
             if ((event.key == 'f')||(event.key == 'F')||(event.key == 'Shift')) {
-                bonusKey = true;
+                keys.bonusKey = true;
             }
         }
 
         function keyRelease(event) {
             if ((event.key == 'a')||(event.key == 'A')||(event.key == 'ArrowLeft')) {
-                leftKey = false;
+                keys.leftKey = false;
             } else if ((event.key == 'd')||(event.key == 'D')||(event.key == 'ArrowRight')) {
-                rightKey = false;
+                keys.rightKey = false;
             }
 
             if ((event.key == 'w')||(event.key == 'W')||(event.key == 'ArrowUp')||(event.key == ' ')) {
-                upKey = false;
+                keys.upKey = false;
             } else if ((event.key == 's')||(event.key == 'S')||(event.key == 'ArrowDown')) {
-                downKey = false;
+                keys.downKey = false;
             }
 
             if ((event.key == 'f')||(event.key == 'F')||(event.key == 'Shift')) {
-                bonusKey = false;
+                keys.bonusKey = false;
             }
         }
     
