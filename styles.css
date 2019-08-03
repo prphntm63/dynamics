@@ -17,13 +17,12 @@ body {
     background-color: #444;
 }
 
-.block {
-    position: fixed;
-    left: 200px;
-    bottom: 180px;
-    width: 500px;
-    height: 50px;
+.platform {
     background-color: gray;
+}
+
+.floor {
+    background-color: darkslategray;
 }
 
 .grid-container {
