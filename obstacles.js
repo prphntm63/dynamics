@@ -1,31 +1,47 @@
-obstacles = {
-    block : {
+obstacles = [
+    {
         type: 'platform',
         left : '450',
         bottom: '200',
-        height: '50',
+        height: '150',
         width: '500'
     },
 
-    floor : {
+    {
+        type: 'platform',
+        left : '700',
+        bottom: '550',
+        height: '150',
+        width: '500'
+    },
+
+    {
+        type: 'platform',
+        left : '300',
+        bottom: '650',
+        height: '80',
+        width: '80'
+    },
+
+    {
         type: 'floor',
         left : '0',
-        bottom: '-15',
-        height: '20',
+        bottom: '-40',
+        height: '50',
         width: '2000'
     }
-}
+]
 
 function generateObstacles() {
-    for (obstacle in obstacles) {
-        console.log(obstacle)
+
+    obstacles.forEach(obstacle => {
         let newObstacle = document.createElement('div');
-        newObstacle.classList.add(obstacles[obstacle].type);
+        newObstacle.classList.add(obstacle.type);
         newObstacle.style.position = 'fixed';
-        newObstacle.style.left = obstacles[obstacle].left + 'px';
-        newObstacle.style.bottom = obstacles[obstacle].bottom + 'px';
-        newObstacle.style.width = obstacles[obstacle].width + 'px';
-        newObstacle.style.height = obstacles[obstacle].height + 'px';
+        newObstacle.style.left = obstacle.left + 'px';
+        newObstacle.style.bottom = obstacle.bottom + 'px';
+        newObstacle.style.width = obstacle.width + 'px';
+        newObstacle.style.height = obstacle.height + 'px';
         document.body.append(newObstacle);
-    }
+    })
 }

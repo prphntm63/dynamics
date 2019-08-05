@@ -7,22 +7,25 @@ body {
     display: flex;
     justify-content: flex-start;
     left: 20px;
-    bottom: 0px;
+    bottom: 20px;
     width: 64px;
     height: 120px;
     background-image: url(mario.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: bottom;
-    background-color: #444;
 }
 
 .platform {
     background-color: gray;
+    padding: 0px;
+    margin: 0px;
 }
 
 .floor {
     background-color: darkslategray;
+    padding: 0px;
+    margin: 0px;
 }
 
 .grid-container {

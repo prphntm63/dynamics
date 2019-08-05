@@ -11,8 +11,8 @@ var constants = {
 
 let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
 
-let x0v0 = [0,0];
-let y0v0 = [0,0];
+let x0v0 = [100,0];
+let y0v0 = [250,0];
 let frame = 0;
 let clock = 0;
 let onBlock = false;
@@ -43,10 +43,12 @@ window.onload = function() {
 
         let spritePos = {
             left: x0v0[0],
-            right: x0v0[0] + parseInt(sprite.offsetHeight),
+            right: x0v0[0] + parseInt(sprite.offsetWidth),
             bottom: y0v0[0],
             top: y0v0[0] + parseInt(sprite.offsetHeight)
         }
+
+        onBlock = false;
 
         //Check for collisions
         for (obstacleKey in obstacles) {
@@ -57,19 +59,20 @@ window.onload = function() {
             obstacle.right = parseInt(obstacle.left) + parseInt(obstacle.width);
 
             if ((spritePos.right > obstacle.left) && (spritePos.left < obstacle.right)) {
-                if (obstacleKey == 'floor') {
-                    console.log(spritePos.bottom + ' ' + obstacle.top + ' ' + onBlock)
-                }
+
                 if (spritePos.top > obstacle.bottom) {
-                    if (Math.round(spritePos.bottom) <= Math.round(obstacle.top)) {
+                    if ((spritePos.bottom <= obstacle.top) && (spritePos.bottom >= Number(obstacle.top + y0v0[1] - 2.0)) && (spritePos.top > obstacle.top)) { //Check for top collision
                         y0v0 = [Math.round(obstacle.top), 0]
                         onBlock = true;
-                    } else if (spritePos.bottom < obstacle.bottom) {
+                    } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + y0v0[1] + 2.0)) ) { //Check for bottom collision
                         y0v0 = [obstacle.bottom - parseInt(sprite.offsetHeight), 0];
-                        onBlock = false;
-                    } else {
-                        onBlock = false;
-                    }
+                    } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top)) { // check for Left/Right side collision
+                        if (spritePos.right > obstacle.left && spritePos.left < obstacle.left) { // Check for LH collision
+                            x0v0 = [obstacle.left - parseInt(sprite.offsetWidth), 0]
+                        } else if (spritePos.left < obstacle.right && spritePos.right > obstacle.right) { //Check for RH collision
+                            x0v0 = [obstacle.right, 0];
+                        }
+                    } 
                 }
             }
         }
@@ -119,6 +122,10 @@ window.onload = function() {
             ax = -constants.decelX;
         } else if (v0 < 0 && (keys.xKeyReset)) {
             ax = constants.decelX;
+        } else if (keys.rightKey) {
+            ax = (v0 <= constants.maxVeloX) ? 0.3*constants.accelX : 0;
+        } else if (keys.leftKey) {
+            ax = (v0 >= -constants.maxVeloX) ? -0.3*constants.accelX : 0;
         } else {
             ax = 0;
         }
@@ -152,10 +159,6 @@ window.onload = function() {
     }
 
     function getAccelY(y0v0) {
-        // if (y0v0[0] <= 0) {
-        //     y0v0[0] = 0;
-        //     ay = 0;
-        // } else 
         if (y0v0[1] <= -constants.maxVeloY) {
             ay = 0;
         } else if (onBlock) {
@@ -171,7 +174,8 @@ window.onload = function() {
         let vy = y0v0[1] + ay;
         if (keys.upKey && (keys.upKeyReset < 2)) {
             onBlock = false;
-            vy += constants.jumpVelocity / (keys.upKeyReset + 1);
+            // vy += constants.jumpVelocity / (keys.upKeyReset + 1);
+            vy += (keys.upKeyReset == 0) ? constants.jumpVelocity : constants.jumpVelocity / 3;
             keys.upKey = false;
             keys.upKeyReset++;
         }
