@@ -1,5 +1,6 @@
 body {
     background: black;
+    overflow: hidden;
 }
 
 .box {
@@ -14,21 +15,13 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: bottom;
-}
-
-.platform {
-    background-color: gray;
-    padding: 0px;
-    margin: 0px;
-}
-
-.floor {
-    background-color: darkslategray;
-    padding: 0px;
-    margin: 0px;
+    z-index: 999;
 }
 
 .grid-container {
+    position: sticky;
+    top: 0px;
+    left: 0px;
     display: grid;
     background-color: white;
     grid-gap: 5px;

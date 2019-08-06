@@ -7,19 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="obstacles.css">
+    <script src="keyPress.js"></script>
+    <script src="dynamics.js"></script>
     <script src="obstacles.js"></script>
+    <script src="collision.js"></script>
+    <script src="animateSprite.js"></script>
     <script src="script.js"></script>
     <title>Dynamics Tests</title>
 </head>
 <body onkeydown="keyPress(event)" onkeyup="keyRelease(event)">
-    <div class='box' id='box'></div>
-    <div class='grid-container' style='color:white;'>
-        <div class='lefty' id='left'>Left</div>
-        <div class='righty' id='right'>Right</div>
-        <div class='up' id='up'>Up</div>
-        <div class='down' id='down'>Down</div>
-        <div class='bonus' id='bonus'>Bonus</div>
+    <div id='level-container'>
+        <div class='box' id='box'></div>
+        <div class='grid-container' style='color:white;'>
+            <div class='lefty' id='left'>Left</div>
+            <div class='righty' id='right'>Right</div>
+            <div class='up' id='up'>Up</div>
+            <div class='down' id='down'>Down</div>
+            <div class='bonus' id='bonus'>Bonus</div>
+        </div>
     </div>
+
+    <script>
+        window.onload = main();
+    </script>
     
 </body>
 </html>

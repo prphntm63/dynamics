@@ -1,0 +1,41 @@
+function animateSprite (keys, sprite) {
+    // Map walking sprites to an array per their sequence
+    let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
+
+    // Change direction of sprite when we press the left or right keys accordingly
+    if (keys.leftKey) {
+        sprite.style.transform = 'scaleX(-1)'
+    } else if (keys.rightKey) {
+        sprite.style.transform = 'scaleX(1)'
+    }
+
+    // Check for special conditions such as ducking or jumping. 
+    // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
+    if (keys.downKey) {
+        sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+    } else if (y0v0[0] > 0 && !onBlock) {
+        sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+    } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
+        sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+    } else if (x0v0[1] == 0) {
+        sprite.style.backgroundImage = 'url("sprites/stand.gif")';
+    } else {
+        let animateTransition = clock % constants.animateInterval;
+        if (animateTransition == 0) {
+            sprite.style.backgroundImage = walkSprites[frame%3];
+            frame += 1;
+        }
+    }
+
+    // Update sprite position in window
+    sprite.style.left = x0v0[0] + 'px';
+    sprite.style.bottom = y0v0[0] + 'px';
+
+    // Update input keys in window
+    document.getElementById('left').style.backgroundColor = keys.leftKey?'red':'black';
+    document.getElementById('right').style.backgroundColor = keys.rightKey?'red':'black';
+    document.getElementById('up').style.backgroundColor = keys.upKey?'red':'black';
+    document.getElementById('down').style.backgroundColor = keys.downKey?'red':'black';
+    document.getElementById('bonus').style.backgroundColor = keys.bonusKey?'yellow':'black';
+
+}
