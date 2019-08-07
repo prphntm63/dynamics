@@ -31,6 +31,7 @@ function getVeloX(x0v0) {
 }
 
 function getPosX(x0v0) {
+    let levelWidth = document.getElementById('level-container').getBoundingClientRect();
     let x0 = x0v0[0];
     let ax = getAccelX(x0v0);
     let vx = getVeloX(x0v0);
@@ -39,7 +40,7 @@ function getPosX(x0v0) {
     if (posX <= 0) {
         posX = x0v0[0];
         vx = 0;
-    } else if (posX >= constants.windowWidth) {
+    } else if (posX >= levelWidth.width-64) {
         posX = x0v0[0];
         vx = 0;
     }

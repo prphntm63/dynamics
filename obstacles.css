@@ -1,4 +1,5 @@
 .platform {
+    border: 1px solid black;
     background-color: gray;
     box-sizing: border-box;
     border-top: 10px solid white;
@@ -8,17 +9,22 @@
 }
 
 .platform2 {
+    border: 1px solid black;
     background-color: #bbb;
     box-sizing: border-box;
     border-top: 10px solid #333;
     border-radius: 10px;
     padding: 0px;
     margin: 0px;
+    
 }
 
 .block {
     background: url('textures/concrete.png');
     background-size: 100px;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid black;
 }
 
 .floor {
@@ -41,6 +47,7 @@
     background-size: 100px;
     padding: 0px;
     margin: 0px;
+    border: 1px solid black;
 }
 
 .dirt {
@@ -48,6 +55,7 @@
     background-size: 100px;
     padding: 0px;
     margin: 0px;
+    border: 1px solid black;
 }
 
 .brick {
@@ -55,4 +63,5 @@
     background-size: 100px;
     padding: 0px;
     margin: 0px;
+    border: 1px solid black;
 }

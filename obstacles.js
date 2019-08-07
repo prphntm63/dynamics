@@ -28,7 +28,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '700',
         bottom: '550',
@@ -37,7 +37,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '300',
         bottom: '650',
@@ -46,7 +46,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '1300',
         bottom: '750',
@@ -55,7 +55,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '1450',
         bottom: '900',
@@ -64,7 +64,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '1600',
         bottom: '750',
@@ -73,7 +73,7 @@ obstacles = [
     },
 
     {
-        type: 'block',
+        type: 'brick',
         collision: 'all',
         left : '1750',
         bottom: '600',
@@ -86,7 +86,7 @@ obstacles = [
         left : '0',
         bottom: '-40',
         height: '50',
-        width: '2000'
+        width: '10000'
     }
 ]
 

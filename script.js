@@ -2,15 +2,15 @@ var constants = {
     animateInterval : 4,
     windowWidth : window.innerWidth - 64,
     jumpVelocity : 35,
-    accelX : 1.5,
+    accelX : 1,
     decelX : 3,
     accelY : 2,
-    maxVeloX : 20,
+    maxVeloX : 17,
     maxVeloY : 40,
 }
 
-let x0v0 = [100,0]; //Initial position. We want to 'drop down' into the level
-let y0v0 = [250,0];
+let x0v0 = [screen.width/4,0]; //Initial position. We want to 'drop down' into the level
+let y0v0 = [screen.height*.8,0];
 let frame = 0;
 let clock = 0;
 let onBlock = false; //We don't start on a block
@@ -51,6 +51,7 @@ function main() {
         checkCollision(spritePos, obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
 
         animateSprite(keys, sprite); //Update sprite animations and update sprite position in window
+        scroll(spritePos); //Update scroll position, if necessary
         requestAnimationFrame(animate); //Restart animation
 
         clock += 1; //Cycle clock

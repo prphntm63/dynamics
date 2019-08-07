@@ -17,7 +17,7 @@ function checkCollision(spritePos, obstacles) {
                                 onBlock = true;
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + y0v0[1] + 2.0)) ) { //Check for bottom collision
                                 y0v0 = [obstacle.bottom - parseInt(spritePos.height), 0];
-                            } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top)) { // check for Left/Right side collision
+                            } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) { // check for Left/Right side collision
                                 if (spritePos.right > obstacle.left && spritePos.left < obstacle.left) { // Check for LH collision
                                     x0v0 = [obstacle.left - parseInt(spritePos.width), 0]
                                 } else if (spritePos.left < obstacle.right && spritePos.right > obstacle.right) { //Check for RH collision
