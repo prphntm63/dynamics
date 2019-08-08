@@ -15,6 +15,12 @@ function checkCollision(spritePos, obstacles) {
                             if ((spritePos.bottom <= obstacle.top) && (spritePos.bottom >= Number(obstacle.top + y0v0[1] - 2.0)) && (spritePos.top > obstacle.top)) { //Check for top collision
                                 y0v0 = [Math.round(obstacle.top), 0]
                                 onBlock = true;
+
+                                if ((obstacle.type == 'pipe') && (keys.downKey)) { // Check to see if we are on top of a pipe
+                                    handlingAnimation = obstacle.id;
+                                    keys.downKey = false;
+                                }
+
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + y0v0[1] + 2.0)) ) { //Check for bottom collision
                                 y0v0 = [obstacle.bottom - parseInt(spritePos.height), 0];
                             } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) { // check for Left/Right side collision

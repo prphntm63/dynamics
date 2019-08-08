@@ -14,8 +14,10 @@ let y0v0 = [screen.height*.8,0];
 let frame = 0;
 let clock = 0;
 let onBlock = false; //We don't start on a block
+let handlingAnimation = false;
 
 var keys = {
+    allowInput: true,
     rightKey : false,
     leftKey : false,
     upKey : false,
@@ -28,7 +30,7 @@ var keys = {
 function main() {
     generateObstacles();
 
-    var sprite = document.getElementById('box');
+    var sprite = document.getElementById('sprite');
 
     requestAnimationFrame(animate); //Start the animation
 
@@ -48,10 +50,15 @@ function main() {
             width: sprite.offsetWidth
         }
 
-        checkCollision(spritePos, obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
+        if (handlingAnimation) {
+            handlePipe();
+        } else {
+            checkCollision(spritePos, obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
+            animateSprite(keys, sprite); //Update sprite animations and update sprite position in window
+            scroll(spritePos); //Update scroll position, if necessary
+        }
 
-        animateSprite(keys, sprite); //Update sprite animations and update sprite position in window
-        scroll(spritePos); //Update scroll position, if necessary
+        
         requestAnimationFrame(animate); //Restart animation
 
         clock += 1; //Cycle clock

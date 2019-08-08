@@ -87,6 +87,28 @@ obstacles = [
         bottom: '-40',
         height: '50',
         width: '10000'
+    },
+
+    {
+        type: 'pipe',
+        id: 1,
+        output: 2,
+        collision: 'all',
+        left: '740',
+        bottom: '0',
+        height: '150',
+        width: '140'
+    },
+
+    {
+        type: 'pipe',
+        id: 2,
+        output: 1,
+        collision: 'all',
+        left: '1040',
+        bottom: '0',
+        height: '150',
+        width: '140'
     }
 ]
 
@@ -100,6 +122,46 @@ function generateObstacles() {
         newObstacle.style.bottom = obstacle.bottom + 'px';
         newObstacle.style.width = obstacle.width + 'px';
         newObstacle.style.height = obstacle.height + 'px';
+
+        if (obstacle.type == 'pipe') {
+            let pipeDivElements = [
+                {width:3, color:'060'},
+                {width:2, color:'090'},
+                {width:2, color:'0b0'},
+                {width:3, color:'fff'},
+                {width:5, color:'0b0'},
+                {width:4, color:'090'},
+                {width:1, color:'060'},
+                {width:1, color:'090'},
+                {width:7, color:'060'},
+            ]
+
+            let pipeTop = document.createElement('div');
+            pipeTop.classList.add('pipe-top');
+            generatePipeDivs(pipeDivElements, pipeTop);
+            newObstacle.appendChild(pipeTop)
+
+            let pipeBottom = document.createElement('div');
+            pipeBottom.classList.add('pipe-bottom');
+            generatePipeDivs(pipeDivElements, pipeBottom);
+            newObstacle.appendChild(pipeBottom)
+            
+
+
+
+        } 
+
         document.getElementById('level-container').append(newObstacle);
     })
+}
+
+function generatePipeDivs(widthColorArray, parent) {
+    widthColorArray.forEach(widthColor => {
+        let subDiv = document.createElement('div');
+        subDiv.style.height = '100%';
+        subDiv.style.backgroundColor = `#${widthColor.color}`;
+        subDiv.style.flexGrow = widthColor.width;
+        parent.appendChild(subDiv);
+    })
+
 }

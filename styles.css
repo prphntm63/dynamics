@@ -24,7 +24,7 @@ body {
     background: none;
 }
 
-.box {
+.sprite {
     position: absolute;
     display: flex;
     justify-content: flex-start;
@@ -37,6 +37,12 @@ body {
     background-size: contain;
     background-position-y: bottom;
     z-index: 999;
+}
+
+.animate-sprite-y {
+    border: 5px solid black;
+    -webkit-transition-property: bottom;
+    -webkit-transition-duration: 1s;
 }
 
 .grid-container {
