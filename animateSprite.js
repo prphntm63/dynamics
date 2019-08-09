@@ -1,4 +1,12 @@
-function animateSprite (keys, sprite) {
+;(function () {
+
+function animateSprite () {
+    let sprite = SPRITE.dom;
+    let keys = window.INPUT.keys;
+    let constants = window.LEVEL.constants;
+    let x0v0 = XY.x0v0;
+    let y0v0 = XY.y0v0;
+
     // Map walking sprites to an array per their sequence
     let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
 
@@ -13,17 +21,17 @@ function animateSprite (keys, sprite) {
     // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
     if (keys.downKey) {
         sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
-    } else if (y0v0[0] > 0 && !onBlock) {
+    } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
         sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
     } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
         sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
     } else if (x0v0[1] == 0) {
         sprite.style.backgroundImage = 'url("sprites/stand.gif")';
     } else {
-        let animateTransition = clock % constants.animateInterval;
+        let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
         if (animateTransition == 0) {
-            sprite.style.backgroundImage = walkSprites[frame%3];
-            frame += 1;
+            sprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
+            LEVEL.variables.frame += 1;
         }
     }
 
@@ -39,3 +47,9 @@ function animateSprite (keys, sprite) {
     document.getElementById('bonus').style.backgroundColor = keys.bonusKey?'yellow':'black';
 
 }
+
+// **********  EXPORTS  **********
+window.ANIMATE = window.ANIMATE || {}
+window.ANIMATE.animateSprite = animateSprite
+
+})()

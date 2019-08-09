@@ -83,4 +83,5 @@ body {
 
 .bonus2 {
     grid-area: bonus2;
+    background-color: green;
 }

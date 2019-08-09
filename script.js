@@ -1,70 +1,98 @@
-var constants = {
-    animateInterval : 4,
-    windowWidth : window.innerWidth - 64,
-    jumpVelocity : 35,
-    accelX : 1,
-    decelX : 3,
-    accelY : 2,
-    maxVeloX : 17,
-    maxVeloY : 40,
-}
+;(function() {
+    window.INPUT = window.INPUT || {}
 
-let x0v0 = [screen.width/4,0]; //Initial position. We want to 'drop down' into the level
-let y0v0 = [screen.height*.8,0];
-let frame = 0;
-let clock = 0;
-let onBlock = false; //We don't start on a block
-let handlingAnimation = false;
+    INPUT.keys = {
+        allowInput: true,
+        rightKey : false,
+        leftKey : false,
+        upKey : false,
+        downKey : false,
+        bonusKey : false,
+        upKeyReset : 0,
+        xKeyReset : true
+    }
 
-var keys = {
-    allowInput: true,
-    rightKey : false,
-    leftKey : false,
-    upKey : false,
-    downKey : false,
-    bonusKey : false,
-    upKeyReset : 0,
-    xKeyReset : true
-}
+    window.LEVEL = window.LEVEL || {}
+
+    LEVEL.constants = {
+        animateInterval : 4,
+        windowWidth : window.innerWidth - 64,
+        levelWidth: undefined,
+        jumpVelocity : 35,
+        accelX : 1,
+        decelX : 3,
+        accelY : 2,
+        maxVeloX : 17,
+        maxVeloY : 40,
+        x0v0 : [screen.width/4,0], //Initial position. We want to 'drop down' into the level
+        y0v0 : [screen.height*.8,0],
+    }
+
+    LEVEL.variables = {
+        frame : 0,
+        clock : 0,
+        onBlock : false, //We don't start on a block
+        handlingAnimation : false,
+        currentPipe : undefined,
+        outputPipe : undefined,
+        counter : 0,
+        animationCase : 0,
+        scrollCounter : 30,
+    }
+
+    window.SPRITE = window.SPRITE || {}
+
+    SPRITE.dom = undefined;
+    SPRITE.spritePos = getSpritePos;
+
+    function getSpritePos() {
+        return {
+            left: XY.x0v0[0],
+            right: XY.x0v0[0] + parseInt(sprite.offsetWidth),
+            bottom: XY.y0v0[0],
+            top: XY.y0v0[0] + parseInt(sprite.offsetHeight),
+            height: SPRITE.dom.offsetHeight,
+            width: SPRITE.dom.offsetWidth
+        }
+    }
+})()
 
 function main() {
+    LEVEL.constants.levelWidth = document.getElementById('level-container').getBoundingClientRect();
+    SPRITE.dom = document.getElementById('sprite');
+
     generateObstacles();
 
-    var sprite = document.getElementById('sprite');
+    document.getElementById('bonus2').addEventListener('click', editLevel)
+    document.body.addEventListener('keydown', window.INPUT.keyEvents.keyPress)
+    document.body.addEventListener('keyup', window.INPUT.keyEvents.keyRelease)
 
     requestAnimationFrame(animate); //Start the animation
 
     function animate(timestamp) { //Repeat to animate each frame
 
-        x0v0 = getPosX(x0v0); //Calculate X and Y positions
-        y0v0 = getPosY(y0v0);
+        window.XY.updatePosX(); //Calculate X and Y positions
+        window.XY.updatePosY();
 
-        onBlock = false; //Reset block physics. Assume we are not on a block. This is overridden in 'checkCollision()' if on a block
+        LEVEL.variables.onBlock = false; //Reset block physics. Assume we are not on a block. This is overridden in 'checkCollision()' if on a block
 
-        let spritePos = { //Calculate new sprite position
-            left: x0v0[0],
-            right: x0v0[0] + parseInt(sprite.offsetWidth),
-            bottom: y0v0[0],
-            top: y0v0[0] + parseInt(sprite.offsetHeight),
-            height: sprite.offsetHeight,
-            width: sprite.offsetWidth
-        }
-
-        if (handlingAnimation) {
-            handlePipe();
+        if (LEVEL.variables.handlingAnimation) {
+            ANIMATE.handlePipe();
         } else {
-            checkCollision(spritePos, obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
-            animateSprite(keys, sprite); //Update sprite animations and update sprite position in window
-            scroll(spritePos); //Update scroll position, if necessary
+            ANIMATE.checkCollision(SPRITE.spritePos(), obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
+            ANIMATE.animateSprite(); //Update sprite animations and update sprite position in window
+            ANIMATE.scroll(); //Update scroll position, if necessary
         }
 
         
         requestAnimationFrame(animate); //Restart animation
 
-        clock += 1; //Cycle clock
+        LEVEL.variables.clock += 1; //Cycle clock
     }
 
-}
+};
+
+
 
 
     

@@ -105,9 +105,9 @@ obstacles = [
         id: 2,
         output: 1,
         collision: 'all',
-        left: '1040',
+        left: '3040',
         bottom: '0',
-        height: '150',
+        height: '350',
         width: '140'
     }
 ]
