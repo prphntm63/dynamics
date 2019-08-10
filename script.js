@@ -26,6 +26,7 @@
         maxVeloY : 40,
         x0v0 : [screen.width/4,0], //Initial position. We want to 'drop down' into the level
         y0v0 : [screen.height*.8,0],
+        animationFrame : undefined,
     }
 
     LEVEL.variables = {
@@ -38,6 +39,7 @@
         counter : 0,
         animationCase : 0,
         scrollCounter : 30,
+        editingLevel: false,
     }
 
     window.SPRITE = window.SPRITE || {}
@@ -55,19 +57,8 @@
             width: SPRITE.dom.offsetWidth
         }
     }
-})()
 
-function main() {
-    LEVEL.constants.levelWidth = document.getElementById('level-container').getBoundingClientRect();
-    SPRITE.dom = document.getElementById('sprite');
-
-    generateObstacles();
-
-    document.getElementById('bonus2').addEventListener('click', editLevel)
-    document.body.addEventListener('keydown', window.INPUT.keyEvents.keyPress)
-    document.body.addEventListener('keyup', window.INPUT.keyEvents.keyRelease)
-
-    requestAnimationFrame(animate); //Start the animation
+    LEVEL.animate = animate
 
     function animate(timestamp) { //Repeat to animate each frame
 
@@ -85,10 +76,23 @@ function main() {
         }
 
         
-        requestAnimationFrame(animate); //Restart animation
+        LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Restart animation
 
         LEVEL.variables.clock += 1; //Cycle clock
     }
+})()
+
+function main() {
+    LEVEL.constants.levelWidth = document.getElementById('level-container').getBoundingClientRect();
+    SPRITE.dom = document.getElementById('sprite');
+
+    generateObstacles();
+
+    document.getElementById('bonus2').addEventListener('click', editLevel) //Add event handlers
+    document.body.addEventListener('keydown', window.INPUT.keyEvents.keyPress)
+    document.body.addEventListener('keyup', window.INPUT.keyEvents.keyRelease)
+
+    LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Start the animation
 
 };
 

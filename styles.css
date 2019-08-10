@@ -12,7 +12,6 @@ body {
     background: url('/backgrounds/hills.jpg') center repeat-x;
     background-size: auto 100%;
     overflow: hidden;
-
 }
 
 #level-container {
@@ -28,8 +27,6 @@ body {
     position: absolute;
     display: flex;
     justify-content: flex-start;
-    left: 20px;
-    bottom: 20px;
     width: 64px;
     height: 120px;
     background-image: url('/sprites/stand.gif');
@@ -39,10 +36,10 @@ body {
     z-index: 999;
 }
 
-.animate-sprite-y {
-    border: 5px solid black;
-    -webkit-transition-property: bottom;
-    -webkit-transition-duration: 1s;
+.sprite-hidden {
+    left: 0px;
+    top: 0px;
+    display: none;
 }
 
 .grid-container {
