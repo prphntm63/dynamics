@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="obstacles.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
     <script src="keyPress.js"></script>
     <script src="dynamics.js"></script>
@@ -28,13 +29,26 @@
         </div>
     </div>
 
-    <div class='grid-container' style='color:white;'>
+    <div class='grid-container' id='grid-container' style='color:white;'>
         <div class='lefty' id='left'>Left</div>
         <div class='righty' id='right'>Right</div>
         <div class='up' id='up'>Up</div>
         <div class='down' id='down'>Down</div>
         <div class='bonus' id='bonus'>Bonus</div>
         <div class='bonus2' id='bonus2'>Edit</div>
+    </div>
+
+    <div class='edit-container hidden' id='edit-container'>
+        <div>
+            <h2>Editing...</h2>
+            <button id="done-editing-button" style="height:25px">Done</button>
+        </div>
+        <div>
+            <div class='edit-sample block selected' id='edit-block'></div>
+            <div class='edit-sample platform' id='edit-platform'></div>
+            <div class='edit-sample platform2' id='edit-platform2'></div>
+            <div class='edit-sample brick' id='edit-brick'></div>
+        </div>
     </div>
 
     <script>

@@ -32,7 +32,7 @@ obstacles = [
         collision: 'all',
         left : '700',
         bottom: '550',
-        height: '50',
+        height: '64',
         width: '500'
     },
 
@@ -41,7 +41,7 @@ obstacles = [
         collision: 'all',
         left : '300',
         bottom: '650',
-        height: '50',
+        height: '64',
         width: '100'
     },
 
@@ -50,8 +50,8 @@ obstacles = [
         collision: 'all',
         left : '1300',
         bottom: '750',
-        height: '50',
-        width: '50'
+        height: '64',
+        width: '64'
     },
 
     {
@@ -59,8 +59,8 @@ obstacles = [
         collision: 'all',
         left : '1450',
         bottom: '900',
-        height: '50',
-        width: '50'
+        height: '64',
+        width: '64'
     },
 
     {
@@ -68,8 +68,8 @@ obstacles = [
         collision: 'all',
         left : '1600',
         bottom: '750',
-        height: '50',
-        width: '50'
+        height: '64',
+        width: '64'
     },
 
     {
@@ -77,8 +77,8 @@ obstacles = [
         collision: 'all',
         left : '1750',
         bottom: '600',
-        height: '50',
-        width: '50'
+        height: '64',
+        width: '64'
     },
 
     {
@@ -113,10 +113,17 @@ obstacles = [
 ]
 
 function generateObstacles() {
+    let levelContainer = document.getElementById('level-container');
+    obstacleList = levelContainer.querySelectorAll('.obstacle')
+
+    obstacleList.forEach(obstacle => { //Delete all obstacles to avoid duplicates
+        obstacle.parentElement.removeChild(obstacle);
+    })
 
     obstacles.forEach(obstacle => {
         let newObstacle = document.createElement('div');
         newObstacle.classList.add(obstacle.type);
+        newObstacle.classList.add('obstacle');
         newObstacle.style.position = 'absolute';
         newObstacle.style.left = obstacle.left + 'px';
         newObstacle.style.bottom = obstacle.bottom + 'px';
@@ -145,13 +152,9 @@ function generateObstacles() {
             pipeBottom.classList.add('pipe-bottom');
             generatePipeDivs(pipeDivElements, pipeBottom);
             newObstacle.appendChild(pipeBottom)
-            
-
-
-
         } 
 
-        document.getElementById('level-container').append(newObstacle);
+        levelContainer.append(newObstacle);
     })
 }
 

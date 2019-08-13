@@ -50,9 +50,9 @@
     function getSpritePos() {
         return {
             left: XY.x0v0[0],
-            right: XY.x0v0[0] + parseInt(sprite.offsetWidth),
+            right: XY.x0v0[0] + parseInt(SPRITE.dom.offsetWidth),
             bottom: XY.y0v0[0],
-            top: XY.y0v0[0] + parseInt(sprite.offsetHeight),
+            top: XY.y0v0[0] + parseInt(SPRITE.dom.offsetHeight),
             height: SPRITE.dom.offsetHeight,
             width: SPRITE.dom.offsetWidth
         }
@@ -80,6 +80,14 @@
 
         LEVEL.variables.clock += 1; //Cycle clock
     }
+
+    window.EDIT = window.EDIT || {}
+    
+    EDIT.editing = false;
+    EDIT.selectedObstacle = 'block';
+    EDIT.mouseDown = undefined;
+    EDIT.mouseUp = undefined;
+
 })()
 
 function main() {
@@ -89,12 +97,23 @@ function main() {
     generateObstacles();
 
     document.getElementById('bonus2').addEventListener('click', editLevel) //Add event handlers
-    document.body.addEventListener('keydown', window.INPUT.keyEvents.keyPress)
-    document.body.addEventListener('keyup', window.INPUT.keyEvents.keyRelease)
+    document.body.addEventListener('keydown', INPUT.keyEvents.keyPress)
+    document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
+    document.body.addEventListener('mousedown', getMouseDown)
+    document.body.addEventListener('mouseup', getMouseUp)
+
+    document.getElementById('edit-block').addEventListener('mousedown', selectBlock)
+    document.getElementById('edit-platform').addEventListener('mousedown', selectPlatform)
+    document.getElementById('edit-platform2').addEventListener('mousedown', selectPlatform2)
+    document.getElementById('edit-brick').addEventListener('mousedown', selectBrick)
+    document.getElementById('done-editing-button').addEventListener('mousedown', editLevel)
+    
 
     LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Start the animation
 
 };
+
+
 
 
 
