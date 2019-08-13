@@ -48,8 +48,51 @@ function animateSprite () {
 
 }
 
+class blockAnimateClass {
+    constructor(block) {
+        this.block = block;
+        this.animationList = [0, 9, 18, 25, 30, 25, 18, 9, 0, 0, 0];
+        this.animationFrame = 0;
+        ANIMATE.blockAnimations.push(this)
+    }
+    updateAnimation() {
+        if (this.animationFrame === 0) {
+            let newCoin = document.createElement('div');
+            newCoin.classList.add('coin');
+            newCoin.style.bottom = this.block.bottom + 'px';
+            newCoin.style.left = this.block.left + 'px';
+            newCoin.id = this.block.id + 'coin'
+            document.getElementById('level-container').appendChild(newCoin)
+        }
+
+        let animationObject = document.getElementById(this.block.id)
+        let coinObject = document.getElementById(this.block.id + 'coin')
+        animationObject.style.bottom = parseInt(parseInt(this.block.bottom) + this.animationList[this.animationFrame]) + 'px'
+        coinObject.style.bottom = parseInt(this.block.bottom + 80*Math.sqrt(this.animationFrame)) + 'px'
+        if (this.animationFrame <= this.animationList.length) {
+            this.animationFrame++
+        } else {
+            animationObject.classList.add('used')
+            ANIMATE.blockAnimations.splice(ANIMATE.blockAnimations.indexOf(this), 1)
+            coinObject.parentElement.removeChild(coinObject)
+        }
+    }
+}
+
+function animateBlocks() {
+    if (ANIMATE.blockAnimations.length) {
+        ANIMATE.blockAnimations.forEach(block => {
+            block.updateAnimation()
+        })
+    }
+}
+
 // **********  EXPORTS  **********
 window.ANIMATE = window.ANIMATE || {}
 window.ANIMATE.animateSprite = animateSprite
+window.ANIMATE.blockAnimations = [];
+window.ANIMATE.blockAnimateClass = blockAnimateClass
+window.ANIMATE.handleBlocks = animateBlocks
+
 
 })()

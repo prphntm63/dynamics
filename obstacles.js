@@ -91,7 +91,7 @@ obstacles = [
 
     {
         type: 'pipe',
-        id: 1,
+        input: 1,
         output: 2,
         collision: 'all',
         left: '740',
@@ -102,7 +102,7 @@ obstacles = [
 
     {
         type: 'pipe',
-        id: 2,
+        input: 2,
         output: 1,
         collision: 'all',
         left: '3040',
@@ -120,10 +120,15 @@ function generateObstacles() {
         obstacle.parentElement.removeChild(obstacle);
     })
 
+    let idCounter = 0;
+
     obstacles.forEach(obstacle => {
         let newObstacle = document.createElement('div');
         newObstacle.classList.add(obstacle.type);
+        if (obstacle.used) newObstacle.classList.add('used')
         newObstacle.classList.add('obstacle');
+        obstacle.id = 'obstacle' + idCounter;
+        newObstacle.id = obstacle.id;
         newObstacle.style.position = 'absolute';
         newObstacle.style.left = obstacle.left + 'px';
         newObstacle.style.bottom = obstacle.bottom + 'px';
@@ -155,6 +160,7 @@ function generateObstacles() {
         } 
 
         levelContainer.append(newObstacle);
+        idCounter++;
     })
 }
 

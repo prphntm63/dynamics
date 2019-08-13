@@ -72,6 +72,7 @@
         } else {
             ANIMATE.checkCollision(SPRITE.spritePos(), obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
             ANIMATE.animateSprite(); //Update sprite animations and update sprite position in window
+            ANIMATE.handleBlocks();
             ANIMATE.scroll(); //Update scroll position, if necessary
         }
 

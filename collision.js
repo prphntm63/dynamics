@@ -25,6 +25,10 @@ function checkCollision(spritePos, obstacles) {
 
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 2.0)) ) { //Check for bottom collision
                                 XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height), 0];
+                                if (obstacle.type == 'block' && !obstacle.used) {
+                                    obstacle.used = true;
+                                    let myBlock = new ANIMATE.blockAnimateClass(obstacle)
+                                }
                             } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) { // check for Left/Right side collision
                                 if (spritePos.right > obstacle.left && spritePos.left < obstacle.left) { // Check for LH collision
                                     XY.x0v0 = [obstacle.left - parseInt(spritePos.width), 0]

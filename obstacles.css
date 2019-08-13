@@ -43,11 +43,18 @@
 }
 
 .block {
-    background: url('textures/concrete.png');
-    background-size: 100px;
+    background: url('textures/question.png');
+    background-size: 64px;
     padding: 0px;
     margin: 0px;
     border: 1px solid black;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+.block.used {
+    /* background: url('textures/question.png'); */
+    background: brown;
 }
 
 .floor {
@@ -88,4 +95,15 @@
     padding: 0px;
     margin: 0px;
     border: 1px solid black;
+}
+
+.coin {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background: url(/textures/coin.png);
+    background-size: 64px;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 4;
 }

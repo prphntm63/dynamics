@@ -7,11 +7,11 @@ function handlePipe() {
     })
 
     LEVEL.variables.currentPipe = pipes.filter(pipe => {
-        return (pipe.id === LEVEL.variables.handlingAnimation) ? true : false;
+        return (pipe.input === LEVEL.variables.handlingAnimation) ? true : false;
     })
 
     LEVEL.variables.outputPipe = pipes.filter(pipe => {
-        return (pipe.id === LEVEL.variables.currentPipe[0].output) ? true : false;
+        return (pipe.input === LEVEL.variables.currentPipe[0].output) ? true : false;
     })
 
     INPUT.keys.allowInput = false;
