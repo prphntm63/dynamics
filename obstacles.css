@@ -90,8 +90,8 @@
 }
 
 .brick {
-    background: url('/textures/brick.png');
-    background-size: 100px;
+    background: url('/textures/brick2.png');
+    background-size: 64px;
     padding: 0px;
     margin: 0px;
     border: 1px solid black;

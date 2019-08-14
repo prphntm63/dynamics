@@ -74,14 +74,14 @@ function getMouseUp(event) {
 
     let obstacleBottom = window.innerHeight - Math.ceil(Math.max(EDIT.mouseDown[1], EDIT.mouseUp[1])/64)*64
     let obstacleLeft = Math.floor( (parseInt(Math.min(EDIT.mouseDown[0], EDIT.mouseUp[0])- parseInt(mapDiv.left))/64)  ) * 64
-    let obstacleWidth = Math.ceil(Math.abs((EDIT.mouseDown[0] - EDIT.mouseUp[0]) + 1)/64 )*64 -1
-    let obstacleHeight = Math.ceil(Math.abs((EDIT.mouseDown[1] - EDIT.mouseUp[1]) + 1)/64 )*64 -1
+    let obstacleWidth = Math.ceil(Math.abs((EDIT.mouseDown[0] - EDIT.mouseUp[0]) + 1)/64 )*64
+    let obstacleHeight = Math.ceil(Math.abs((EDIT.mouseDown[1] - EDIT.mouseUp[1]) + 1)/64 )*64
 
     if (EDIT.selectedObstacle == 'block') {
         obstacleLeft = Math.floor((EDIT.mouseUp[0]- parseInt(mapDiv.left))/64)*64;
         obstacleBottom =  window.innerHeight - Math.ceil(EDIT.mouseUp[1]/64)*64;
-        obstacleWidth = 63;
-        obstacleHeight = 63;
+        obstacleWidth = 64;
+        obstacleHeight = 64;
     }
 
     if (obstacleWidth < 32 || obstacleHeight < 32) return //Remove zero width/height elements

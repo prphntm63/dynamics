@@ -123,6 +123,14 @@ function generateObstacles() {
     let idCounter = 0;
 
     obstacles.forEach(obstacle => {
+        if ((obstacle.type != 'pipe') && (obstacle.type != 'floor')) {
+            console.log(obstacle.type)
+            obstacle.left = Math.round(obstacle.left/64)*64 +1
+            obstacle.bottom = Math.round(obstacle.bottom/64)*64 +1
+            obstacle.width = Math.ceil(obstacle.width/64)*64 - 2
+            obstacle.height = Math.ceil(obstacle.height/64)*64 -2
+        }
+
         let newObstacle = document.createElement('div');
         newObstacle.classList.add(obstacle.type);
         if (obstacle.used) newObstacle.classList.add('used')

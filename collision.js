@@ -19,22 +19,27 @@ function checkCollision(spritePos, obstacles) {
                                 LEVEL.variables.onBlock = true;
 
                                 if ((obstacle.type == 'pipe') && (INPUT.keys.downKey)) { // Check to see if we are on top of a pipe
-                                    LEVEL.variables.handlingAnimation = obstacle.id;
+                                    LEVEL.variables.handlingAnimation = obstacle.input;
                                     INPUT.keys.downKey = false;
                                 }
 
-                            } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 2.0)) ) { //Check for bottom collision
-                                XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height), 0];
+                            } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 1)) ) { //Check for bottom collision
+                                XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
                                 if (obstacle.type == 'block' && !obstacle.used) {
                                     obstacle.used = true;
                                     let myBlock = new ANIMATE.blockAnimateClass(obstacle)
                                 }
+
+                                return
+
                             } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) { // check for Left/Right side collision
                                 if (spritePos.right > obstacle.left && spritePos.left < obstacle.left) { // Check for LH collision
                                     XY.x0v0 = [obstacle.left - parseInt(spritePos.width), 0]
                                 } else if (spritePos.left < obstacle.right && spritePos.right > obstacle.right) { //Check for RH collision
                                     XY.x0v0 = [obstacle.right, 0];
                                 }
+
+                                return
                             } 
                         }
                     break;

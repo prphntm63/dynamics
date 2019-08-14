@@ -15,6 +15,7 @@
     window.LEVEL = window.LEVEL || {}
 
     LEVEL.constants = {
+        screens : 2,
         animateInterval : 4,
         windowWidth : window.innerWidth - 64,
         levelWidth: undefined,
@@ -95,9 +96,12 @@ function main() {
     LEVEL.constants.levelWidth = document.getElementById('level-container').getBoundingClientRect();
     SPRITE.dom = document.getElementById('sprite');
 
-    generateObstacles();
+    generateLevel();
 
     document.getElementById('bonus2').addEventListener('click', editLevel) //Add event handlers
+    document.getElementById('left').addEventListener('click', ANIMATE.scrollScreenLeft)
+    document.getElementById('right').addEventListener('click', ANIMATE.scrollScreenRight)
+
     document.body.addEventListener('keydown', INPUT.keyEvents.keyPress)
     document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
     document.body.addEventListener('mousedown', getMouseDown)
@@ -109,13 +113,18 @@ function main() {
     document.getElementById('edit-brick').addEventListener('mousedown', selectBrick)
     document.getElementById('done-editing-button').addEventListener('mousedown', editLevel)
     
-
-    LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Start the animation
-
+    setTimeout(function() { //Wait 200ms to start to avoid lag
+        LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Start the animation
+    }, 200)
 };
 
+function generateLevel() {
+    let screenWidth = window.innerWidth;
+    generateObstacles();
 
-
+    document.getElementById('level-container').style.width = parseInt(screenWidth * LEVEL.constants.screens + 1) + 'px';
+    document.getElementById('background-container').style.width = parseInt(0.75 * screenWidth * LEVEL.constants.screens + 1) + 'px';
+}
 
 
 
