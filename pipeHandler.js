@@ -32,7 +32,7 @@ function handlePipe() {
 
         } else {
             if (LEVEL.variables.counter < 125) {
-                XY.y0v0 = [(parseInt(LEVEL.variables.currentPipe[0].height) - LEVEL.variables.counter), 0];
+                XY.y0v0 = [(parseInt(Number(LEVEL.variables.currentPipe[0].height) + Number(LEVEL.variables.currentPipe[0].bottom), 10) - LEVEL.variables.counter), 0];
                 ANIMATE.animateSprite();
                 LEVEL.variables.counter+=2;
             } else {
@@ -51,26 +51,31 @@ function handlePipe() {
         let mapDiv = levelContainer.getBoundingClientRect();
         let leftScroll = -mapDiv.left + 0.2*parseInt(screen.width);
         // let rightScroll = -mapDiv.left + 0.8*parseInt(screen.width);
+        if (LEVEL.variables.currentPipe[0].warp) {
+            ANIMATE.scrollToScreen = LEVEL.variables.currentPipe[0].warp;
+            ANIMATE.scroll();
 
-        if (XY.x0v0[0] < leftScroll-16) {
-            levelContainer.style.left = parseInt(mapDiv.left + LEVEL.variables.scrollCounter) + 'px';
-            backgroundContainer.style.left = 0.5*parseInt(mapDiv.left + LEVEL.variables.scrollCounter) + 'px';
-            // scrollCounter += 5;
-        } else if (XY.x0v0[0] > leftScroll+16) {
-            levelContainer.style.left = parseInt(mapDiv.left - LEVEL.variables.scrollCounter) + 'px';
-            backgroundContainer.style.left = 0.5*parseInt(mapDiv.left - LEVEL.variables.scrollCounter) + 'px';
-            // scrollCounter += 5;
         } else {
-            LEVEL.variables.scrollCounter = 30;
-            LEVEL.variables.animationCase = 3;   
+            if (XY.x0v0[0] < leftScroll-16) {
+                levelContainer.style.left = parseInt(mapDiv.left + LEVEL.variables.scrollCounter) + 'px';
+                backgroundContainer.style.left = 0.5*parseInt(mapDiv.left + LEVEL.variables.scrollCounter) + 'px';
+                // scrollCounter += 5;
+            } else if (XY.x0v0[0] > leftScroll+16) {
+                levelContainer.style.left = parseInt(mapDiv.left - LEVEL.variables.scrollCounter) + 'px';
+                backgroundContainer.style.left = 0.5*parseInt(mapDiv.left - LEVEL.variables.scrollCounter) + 'px';
+                // scrollCounter += 5;
+            } else {
+                LEVEL.variables.scrollCounter = 30;
+                LEVEL.variables.animationCase = 3;   
+            }
         }
     } else if (LEVEL.variables.animationCase == 3) {
         if (LEVEL.variables.counter > 0) {
-            XY.y0v0 = [(parseInt(LEVEL.variables.outputPipe[0].height) - LEVEL.variables.counter), 0];
+            XY.y0v0 = [(parseInt(Number(LEVEL.variables.outputPipe[0].height) + Number(LEVEL.variables.outputPipe[0].bottom) - LEVEL.variables.counter)), 0];
             ANIMATE.animateSprite();
             LEVEL.variables.counter-=2;
         } else {
-            XY.y0v0 = [parseInt(LEVEL.variables.outputPipe[0].height)+1, 0];
+            XY.y0v0 = [parseInt(Number(LEVEL.variables.outputPipe[0].height) + Number(LEVEL.variables.outputPipe[0].bottom))+1, 0];
             ANIMATE.animateSprite();
             LEVEL.variables.animationCase = 0;
             INPUT.keys.allowInput = true;

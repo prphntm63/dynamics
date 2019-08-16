@@ -128,3 +128,18 @@ body {
     display: none !important;
 }
 
+@media only screen and (max-height: 500px) {
+    body {
+        zoom: 0.5;
+        -moz-transform: scale(0.5);
+    }
+
+    #background-container {
+        height: 200vh;
+    }
+
+    #level-container {
+        height: 200vh;
+    }
+
+}

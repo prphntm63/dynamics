@@ -95,7 +95,7 @@ obstacles = [
         output: 2,
         collision: 'all',
         left: '740',
-        bottom: '0',
+        bottom: '638',
         height: '150',
         width: '140'
     },
@@ -165,11 +165,13 @@ function generateObstacles() {
             pipeBottom.classList.add('pipe-bottom');
             generatePipeDivs(pipeDivElements, pipeBottom);
             newObstacle.appendChild(pipeBottom)
+            console.log(obstacle.input + '=> ' + obstacle.output + ',' + obstacle.warp)
         } 
 
         levelContainer.append(newObstacle);
         idCounter++;
     })
+    console.log(obstacles)
 }
 
 function generatePipeDivs(widthColorArray, parent) {
@@ -181,4 +183,30 @@ function generatePipeDivs(widthColorArray, parent) {
         parent.appendChild(subDiv);
     })
 
+}
+
+function generateNavPipes(obstacleList) {
+    for (let i=0; i<LEVEL.constants.screens; i++) {
+        for (let j=0; j<LEVEL.constants.screens; j++) {
+            let navLinks = ['Home', 'About', 'Brewing', 'Portfolio', 'Blog']
+            let pipesWidth = 0.7*parseInt(LEVEL.constants.windowWidth)
+            let pipesOffset = pipesWidth/(LEVEL.constants.screens)
+            
+            let newPipe = {
+                text: `${navLinks[j]}`,
+                type: 'pipe',
+                warp: (j+1),
+                input: 10*(i+1) + (j+1),
+                output: 11*(j+1),
+                collision: 'all',
+                left: `${i*LEVEL.constants.windowWidth + .3*pipesWidth + j*pipesOffset - 70}`,
+                bottom: '0',
+                height: '100',
+                width: '140',
+                color: (i === j) ? 'blue' : 'gray'
+            }
+
+            obstacleList.push(newPipe)
+        }
+    }
 }

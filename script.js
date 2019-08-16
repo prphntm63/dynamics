@@ -15,9 +15,9 @@
     window.LEVEL = window.LEVEL || {}
 
     LEVEL.constants = {
-        screens : 2,
+        screens : 5,
         animateInterval : 4,
-        windowWidth : window.innerWidth - 64,
+        windowWidth : undefined,
         levelWidth: undefined,
         jumpVelocity : 35,
         accelX : 1,
@@ -41,6 +41,7 @@
         animationCase : 0,
         scrollCounter : 30,
         editingLevel: false,
+        mouseScrollCounter: 0
     }
 
     window.SPRITE = window.SPRITE || {}
@@ -51,9 +52,9 @@
     function getSpritePos() {
         return {
             left: XY.x0v0[0],
-            right: XY.x0v0[0] + parseInt(SPRITE.dom.offsetWidth),
+            right: XY.x0v0[0] + parseInt(SPRITE.dom.offsetWidth, 10),
             bottom: XY.y0v0[0],
-            top: XY.y0v0[0] + parseInt(SPRITE.dom.offsetHeight),
+            top: XY.y0v0[0] + parseInt(SPRITE.dom.offsetHeight, 10),
             height: SPRITE.dom.offsetHeight,
             width: SPRITE.dom.offsetWidth
         }
@@ -106,6 +107,16 @@ function main() {
     document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
     document.body.addEventListener('mousedown', getMouseDown)
     document.body.addEventListener('mouseup', getMouseUp)
+    window.addEventListener('wheel', event => {
+        LEVEL.variables.mouseScrollCounter += Math.sign(event.deltaY)
+        if (LEVEL.variables.mouseScrollCounter === 15) {
+            ANIMATE.scrollScreenRight(event);
+            LEVEL.variables.mouseScrollCounter = 0;
+        } else if (LEVEL.variables.mouseScrollCounter === -15) {
+            ANIMATE.scrollScreenLeft(event);
+            LEVEL.variables.mouseScrollCounter = 0;
+        }
+    })
 
     document.getElementById('edit-block').addEventListener('mousedown', selectBlock)
     document.getElementById('edit-platform').addEventListener('mousedown', selectPlatform)
@@ -119,11 +130,14 @@ function main() {
 };
 
 function generateLevel() {
-    let screenWidth = window.innerWidth;
+    LEVEL.constants.windowWidth = window.innerWidth;
+    LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth)
+    
+    generateNavPipes(obstacles);
     generateObstacles();
 
-    document.getElementById('level-container').style.width = parseInt(screenWidth * LEVEL.constants.screens + 1) + 'px';
-    document.getElementById('background-container').style.width = parseInt(0.75 * screenWidth * LEVEL.constants.screens + 1) + 'px';
+    document.getElementById('level-container').style.width = parseInt(LEVEL.constants.windowWidth * LEVEL.constants.screens + 1) + 'px';
+    document.getElementById('background-container').style.width = parseInt(0.75 * LEVEL.constants.windowWidth * LEVEL.constants.screens + 1) + 'px';
 }
 
 
