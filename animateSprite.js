@@ -19,18 +19,40 @@ function animateSprite () {
 
     // Check for special conditions such as ducking or jumping. 
     // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
+    // if (keys.downKey) {
+    //     sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+    // } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
+    //     sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+    // } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
+    //     sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+    // } else if (x0v0[1] == 0) {
+    //     sprite.style.backgroundImage = 'url("sprites/stand.gif")';
+    // } else {
+    //     let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
+    //     if (animateTransition == 0) {
+    //         sprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
+    //         LEVEL.variables.frame += 1;
+    //     }
+    // }
+
+    sprite.style.backgroundImage = 'url("/sprites/spriteSheet.gif")'
+    // sprite.style.bottom = '90px';
+    walkSprites = ['-142px', '-270px', '-24px', '-270px']
+
     if (keys.downKey) {
-        sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+        sprite.style.backgroundPositionX = '-836px';
     } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-        sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+        sprite.style.backgroundPositionX = '-408px';
+    } else if (y0v0[0] < 0 && !LEVEL.variables.onBlock) {
+        sprite.style.backgroundPositionX = '-512px';
     } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-        sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+        sprite.style.backgroundPositionX = '-944px';
     } else if (x0v0[1] == 0) {
-        sprite.style.backgroundImage = 'url("sprites/stand.gif")';
+        sprite.style.backgroundPositionX = '-24px';
     } else {
         let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
         if (animateTransition == 0) {
-            sprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
+            sprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%3];
             LEVEL.variables.frame += 1;
         }
     }

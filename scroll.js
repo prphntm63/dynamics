@@ -27,7 +27,7 @@ function scroll() {
             // LEVEL.variables.handlingAnimation = false;
             INPUT.keys.allowInput = true;
             LEVEL.variables.mouseScrollCounter = 0;
-            if (LEVEL.variables.currentPipe[0].warp) {
+            if (LEVEL.variables.currentPipe) {
                 XY.x0v0[0] = LEVEL.variables.outputPipe[0].left+32;
                 LEVEL.variables.animationCase = 3;
             }

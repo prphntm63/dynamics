@@ -124,7 +124,7 @@ function generateObstacles() {
 
     obstacles.forEach(obstacle => {
         if ((obstacle.type != 'pipe') && (obstacle.type != 'floor')) {
-            console.log(obstacle.type)
+            // console.log(obstacle.type)
             obstacle.left = Math.round(obstacle.left/64)*64 +1
             obstacle.bottom = Math.round(obstacle.bottom/64)*64 +1
             obstacle.width = Math.ceil(obstacle.width/64)*64 - 2
@@ -144,17 +144,43 @@ function generateObstacles() {
         newObstacle.style.height = obstacle.height + 'px';
 
         if (obstacle.type == 'pipe') {
-            let pipeDivElements = [
-                {width:3, color:'060'},
-                {width:2, color:'090'},
-                {width:2, color:'0b0'},
-                {width:3, color:'fff'},
-                {width:5, color:'0b0'},
-                {width:4, color:'090'},
-                {width:1, color:'060'},
-                {width:1, color:'090'},
-                {width:7, color:'060'},
-            ]
+            let pipeDivElements
+            if (obstacle.color == 'blue') {
+                pipeDivElements = [
+                    {width:3, color:'336'},
+                    {width:2, color:'449'},
+                    {width:2, color:'66b'},
+                    {width:3, color:'fff'},
+                    {width:5, color:'66b'},
+                    {width:4, color:'449'},
+                    {width:1, color:'336'},
+                    {width:1, color:'449'},
+                    {width:7, color:'336'},
+                ]
+            } else {
+                pipeDivElements = [
+                    {width:3, color:'666'},
+                    {width:2, color:'999'},
+                    {width:2, color:'bbb'},
+                    {width:3, color:'fff'},
+                    {width:5, color:'bbb'},
+                    {width:4, color:'999'},
+                    {width:1, color:'666'},
+                    {width:1, color:'999'},
+                    {width:7, color:'666'},
+                ]
+            }
+            // let pipeDivElements = [
+            //     {width:3, color:'060'},
+            //     {width:2, color:'090'},
+            //     {width:2, color:'0b0'},
+            //     {width:3, color:'fff'},
+            //     {width:5, color:'0b0'},
+            //     {width:4, color:'090'},
+            //     {width:1, color:'060'},
+            //     {width:1, color:'090'},
+            //     {width:7, color:'060'},
+            // ]
 
             let pipeTop = document.createElement('div');
             pipeTop.classList.add('pipe-top');
@@ -164,14 +190,22 @@ function generateObstacles() {
             let pipeBottom = document.createElement('div');
             pipeBottom.classList.add('pipe-bottom');
             generatePipeDivs(pipeDivElements, pipeBottom);
+            if (obstacle.warp) {
+                newObstacle.addEventListener('click', function() {
+                    LEVEL.variables.animationCase = 1;
+                    LEVEL.variables.handlingAnimation = obstacle.input;
+                    INPUT.keys.downKey = false;
+                })
+            }
             newObstacle.appendChild(pipeBottom)
-            console.log(obstacle.input + '=> ' + obstacle.output + ',' + obstacle.warp)
+            
+            // console.log(obstacle.input + '=> ' + obstacle.output + ',' + obstacle.warp)
         } 
 
         levelContainer.append(newObstacle);
         idCounter++;
     })
-    console.log(obstacles)
+    // console.log(obstacles)
 }
 
 function generatePipeDivs(widthColorArray, parent) {

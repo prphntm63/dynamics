@@ -42,7 +42,7 @@
         if (posX <= 0) {
             posX = x0v0[0];
             vx = 0;
-        } else if (posX >= levelWidth.width-64) {
+        } else if ((posX) >= (levelWidth-64)) {
             posX = x0v0[0];
             vx = 0;
         }
