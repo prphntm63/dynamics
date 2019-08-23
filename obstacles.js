@@ -121,8 +121,47 @@ function generateObstacles() {
     })
 
     let idCounter = 0;
+    let newBlockObstacles = []
+
+    let filteredObstacles = obstacles.filter(obstacle => {
+        if (obstacle.type === 'brick') {
+            obstacle.left = Math.round(obstacle.left/64)*64 +1
+            obstacle.bottom = Math.round(obstacle.bottom/64)*64 +1
+            obstacle.width = Math.ceil(obstacle.width/64)*64 - 2
+            obstacle.height = Math.ceil(obstacle.height/64)*64 -2
+
+            let widthNumberBlocks = Math.ceil(obstacle.width/64)
+            let heightNumberBlocks = Math.ceil(obstacle.height/64)
+
+            if (widthNumberBlocks > 1 || heightNumberBlocks > 1) {
+                for (let widthIdx = 0; widthIdx < widthNumberBlocks; widthIdx++) {
+                    for (let heightIdx = 0; heightIdx < heightNumberBlocks; heightIdx++) {
+                        newBlockObstacles.push(
+                            {
+                                type: 'brick',
+                                collision: 'all',
+                                left : parseInt(obstacle.left) + parseInt(widthIdx*64),
+                                bottom: parseInt(obstacle.bottom) + parseInt(heightIdx*64),
+                                height: '64',
+                                width: '64'
+                            }
+                        )
+                    }
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    })
+
+    obstacles = filteredObstacles.concat(newBlockObstacles)
 
     obstacles.forEach(obstacle => {
+
         if ((obstacle.type != 'pipe') && (obstacle.type != 'floor')) {
             // console.log(obstacle.type)
             obstacle.left = Math.round(obstacle.left/64)*64 +1
@@ -143,9 +182,9 @@ function generateObstacles() {
         newObstacle.style.width = obstacle.width + 'px';
         newObstacle.style.height = obstacle.height + 'px';
 
-        if (obstacle.type == 'pipe') {
+        if (obstacle.type === 'pipe') {
             let pipeDivElements
-            if (obstacle.color == 'blue') {
+            if (obstacle.color === 'blue') {
                 pipeDivElements = [
                     {width:3, color:'336'},
                     {width:2, color:'449'},
@@ -157,7 +196,7 @@ function generateObstacles() {
                     {width:1, color:'449'},
                     {width:7, color:'336'},
                 ]
-            } else {
+            } else if (obstacle.color === 'gray') {
                 pipeDivElements = [
                     {width:3, color:'666'},
                     {width:2, color:'999'},
@@ -169,18 +208,20 @@ function generateObstacles() {
                     {width:1, color:'999'},
                     {width:7, color:'666'},
                 ]
+            } else {
+                pipeDivElements = [
+                    {width:3, color:'060'},
+                    {width:2, color:'090'},
+                    {width:2, color:'0b0'},
+                    {width:3, color:'fff'},
+                    {width:5, color:'0b0'},
+                    {width:4, color:'090'},
+                    {width:1, color:'060'},
+                    {width:1, color:'090'},
+                    {width:7, color:'060'},
+                ]
             }
-            // let pipeDivElements = [
-            //     {width:3, color:'060'},
-            //     {width:2, color:'090'},
-            //     {width:2, color:'0b0'},
-            //     {width:3, color:'fff'},
-            //     {width:5, color:'0b0'},
-            //     {width:4, color:'090'},
-            //     {width:1, color:'060'},
-            //     {width:1, color:'090'},
-            //     {width:7, color:'060'},
-            // ]
+            
 
             let pipeTop = document.createElement('div');
             pipeTop.classList.add('pipe-top');

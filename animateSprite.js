@@ -77,8 +77,9 @@ class blockAnimateClass {
         this.animationFrame = 0;
         ANIMATE.blockAnimations.push(this)
     }
+
     updateAnimation() {
-        if (this.animationFrame === 0) {
+        if (this.animationFrame === 0 && this.block.type === 'block') {
             let newCoin = document.createElement('div');
             newCoin.classList.add('coin');
             newCoin.style.bottom = this.block.bottom + 'px';
@@ -88,15 +89,21 @@ class blockAnimateClass {
         }
 
         let animationObject = document.getElementById(this.block.id)
-        let coinObject = document.getElementById(this.block.id + 'coin')
         animationObject.style.bottom = parseInt(parseInt(this.block.bottom) + this.animationList[this.animationFrame]) + 'px'
-        coinObject.style.bottom = parseInt(this.block.bottom + 80*Math.sqrt(this.animationFrame)) + 'px'
+
+        if (this.block.type === 'block') {
+            let coinObject = document.getElementById(this.block.id + 'coin')
+            coinObject.style.bottom = parseInt(this.block.bottom + 80*Math.sqrt(this.animationFrame)) + 'px'
+        }
+
         if (this.animationFrame <= this.animationList.length) {
             this.animationFrame++
         } else {
-            animationObject.classList.add('used')
             ANIMATE.blockAnimations.splice(ANIMATE.blockAnimations.indexOf(this), 1)
-            coinObject.parentElement.removeChild(coinObject)
+            if (this.block.type === 'block') {
+                animationObject.classList.add('used')
+                coinObject.parentElement.removeChild(coinObject)
+            }
         }
     }
 }

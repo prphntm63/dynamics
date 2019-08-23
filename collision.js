@@ -2,6 +2,9 @@
 
 //Check for collisions
 function checkCollision(spritePos, obstacles) {
+    let preventSideCollision = false;
+    let bottomCollisionPosition = [];
+
     for (obstacleKey in obstacles) {
         let obstacle = obstacles[obstacleKey];
         obstacle.bottom = parseInt(obstacle.bottom);
@@ -23,23 +26,25 @@ function checkCollision(spritePos, obstacles) {
                                     INPUT.keys.downKey = false;
                                 }
 
+                                preventSideCollision = false;
+
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 1)) ) { //Check for bottom collision
-                                XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
-                                if (obstacle.type == 'block' && !obstacle.used) {
+                                // XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
+                                if (((obstacle.type == 'block' && !obstacle.used) || obstacle.type == 'brick') && (spritePos.left > obstacle.left - 48 && spritePos.right < obstacle.right + 48 )) {
                                     obstacle.used = true;
                                     let myBlock = new ANIMATE.blockAnimateClass(obstacle)
                                 }
 
-                                return
+                                preventSideCollision = true;
+                                bottomCollisionPosition.push(Number(obstacle.bottom - parseInt(spritePos.height))) 
 
-                            } else if ((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) { // check for Left/Right side collision
+                            } else if (((spritePos.bottom > obstacle.bottom && spritePos.bottom < obstacle.top) || (spritePos.top > obstacle.bottom && spritePos.top < obstacle.top) || (spritePos.bottom < obstacle.bottom && spritePos.top > obstacle.top)) && !preventSideCollision) { // check for Left/Right side collision
                                 if (spritePos.right > obstacle.left && spritePos.left < obstacle.left) { // Check for LH collision
                                     XY.x0v0 = [obstacle.left - parseInt(spritePos.width), 0]
                                 } else if (spritePos.left < obstacle.right && spritePos.right > obstacle.right) { //Check for RH collision
                                     XY.x0v0 = [obstacle.right, 0];
                                 }
 
-                                return
                             } 
                         }
                     break;
@@ -69,6 +74,11 @@ function checkCollision(spritePos, obstacles) {
             
         }
     }
+
+    if (bottomCollisionPosition.length) {
+        XY.y0v0 = [Math.min(parseInt(bottomCollisionPosition)-2), 0];
+        LEVEL.variables.onBlock = false;
+    };
 }
 
 window.ANIMATE = window.ANIMATE || {}

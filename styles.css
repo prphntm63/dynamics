@@ -11,9 +11,10 @@ body {
     left: 0px;
     top: 0px;
     height: 100vh;
-    background: url('/backgrounds/hills.jpg') center repeat-x;
+    /* background: url('/backgrounds/hills.jpg') center repeat-x; */
     background-size: auto 100%;
     overflow: hidden;
+    /* transition: background-linear-gradient 5s; */
 }
 
 #level-container {
