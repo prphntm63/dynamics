@@ -64,7 +64,12 @@ function scrollScreenLeft(event) {
     event.stopPropagation()
     let mapDiv = document.getElementById('level-container').getBoundingClientRect()
     let currentScreen = Math.floor(-mapDiv.left / window.innerWidth) + 1  
+    
     ANIMATE.scrollToScreen = (currentScreen == 1) ? undefined : currentScreen - 1;
+    LEVEL.variables.handlingAnimation = 11*ANIMATE.scrollToScreen
+    LEVEL.variables.animationCase = 1;
+    ANIMATE.handlePipe()
+    
 }
 
 function scrollScreenRight(event) {
@@ -72,6 +77,10 @@ function scrollScreenRight(event) {
     let mapDiv = document.getElementById('level-container').getBoundingClientRect()
     let currentScreen = Math.floor(-mapDiv.left / window.innerWidth) + 1
     ANIMATE.scrollToScreen =  (currentScreen == Math.floor(mapDiv.width / window.innerWidth)) ? undefined : currentScreen + 1; //Make sure we don't go too far
+
+    LEVEL.variables.handlingAnimation = 11*ANIMATE.scrollToScreen
+    LEVEL.variables.animationCase = 1;
+    ANIMATE.handlePipe()
 }
 
 // **********  EXPORTS  **********

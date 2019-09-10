@@ -186,15 +186,15 @@ function generateObstacles() {
             let pipeDivElements
             if (obstacle.color === 'blue') {
                 pipeDivElements = [
-                    {width:3, color:'336'},
-                    {width:2, color:'449'},
-                    {width:2, color:'66b'},
+                    {width:3, color:'66b'},
+                    {width:2, color:'99c'},
+                    {width:2, color:'bbe'},
                     {width:3, color:'fff'},
-                    {width:5, color:'66b'},
-                    {width:4, color:'449'},
-                    {width:1, color:'336'},
-                    {width:1, color:'449'},
-                    {width:7, color:'336'},
+                    {width:5, color:'bbe'},
+                    {width:4, color:'99c'},
+                    {width:1, color:'66b'},
+                    {width:1, color:'99c'},
+                    {width:7, color:'66b'},
                 ]
             } else if (obstacle.color === 'gray') {
                 pipeDivElements = [
@@ -226,6 +226,12 @@ function generateObstacles() {
             let pipeTop = document.createElement('div');
             pipeTop.classList.add('pipe-top');
             generatePipeDivs(pipeDivElements, pipeTop);
+            if (obstacle.text) {
+                let pipeTopText = document.createElement('div')
+                pipeTopText.innerText = obstacle.text;
+                pipeTopText.classList.add('pipe-top-text')
+                pipeTop.appendChild(pipeTopText)
+            }
             newObstacle.appendChild(pipeTop)
 
             let pipeBottom = document.createElement('div');
@@ -263,7 +269,7 @@ function generatePipeDivs(widthColorArray, parent) {
 function generateNavPipes(obstacleList) {
     for (let i=0; i<LEVEL.constants.screens; i++) {
         for (let j=0; j<LEVEL.constants.screens; j++) {
-            let navLinks = ['Home', 'About', 'Brewing', 'Portfolio', 'Blog']
+            let navLinks = ['Home', 'About', 'Brewing', 'Work', 'Blog']
             let pipesWidth = 0.7*parseInt(LEVEL.constants.windowWidth)
             let pipesOffset = pipesWidth/(LEVEL.constants.screens)
             

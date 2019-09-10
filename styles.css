@@ -131,6 +131,19 @@ body {
     display: none !important;
 }
 
+.pipe-top-text {
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: inherit;
+    font-size: 18px;
+}
+
 @media only screen and (max-height: 500px) {
     body {
         zoom: 0.5;

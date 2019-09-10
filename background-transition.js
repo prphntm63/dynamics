@@ -53,9 +53,14 @@ function createGradientArray(rawColors) {
                 'p' : Number(position)
             })
         })
+        gradientSubArray.forEach(subArray => {
+            subArray = subArray.sort(parameter => {parameter.p})
+            
+        })
         gradientArray.push(gradientSubArray)
     })
-    return gradientArray
+    // return gradientArray
+
 }
 
 console.log(createGradientArray(rawColors))

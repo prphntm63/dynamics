@@ -26,7 +26,7 @@ function checkCollision(spritePos, obstacles) {
                                     INPUT.keys.downKey = false;
                                 }
 
-                                preventSideCollision = false;
+                                preventSideCollision = true;
 
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 1)) ) { //Check for bottom collision
                                 // XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
