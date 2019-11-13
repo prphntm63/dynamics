@@ -1,0 +1,59 @@
+{
+    "input" : {
+        "keys" : {
+            "rightKey" : false,
+            "leftKey" : false,
+            "upKey" : false,
+            "downKey" : false,
+            "bonusKey" : false
+        },
+        "var" : {
+            "allowInput": true,
+            "upKeyReset" : 0,
+            "xKeyReset" : true
+        }
+    },
+
+    "level" : {
+        "const" : {
+            "screens" : 5,
+            "animateInterval" : 4,
+            "jumpVelocity" : 35,
+            "accelX" : 1,
+            "decelX" : 3,
+            "accelY" : 2,
+            "maxVeloX" : 17,
+            "maxVeloY" : 40,
+            "scrollCounter" : 30
+        },
+        "var" : {
+            "windowWidth" : null,
+            "levelWidth": null,
+            "animationFrame" : null,
+            "frame" : 0,
+            "clock" : 0,
+            "onBlock" : false,
+            "handlingAnimation" : false,
+            "currentPipe" : null,
+            "outputPipe" : null,
+            "counter" : 0,
+            "animationCase" : 0,
+            "editingLevel": false,
+            "mouseScrollCounter": 0
+        }
+    },
+
+    "sprite" : {
+        "x0v0" : null, 
+        "y0v0" : null,
+        "dom" : null,
+        "spritePos" : null
+    },
+
+    "edit" : {
+        "editing" : false,
+        "selectedObstacle" : "block",
+        "mouseDown" : null,
+        "mouseUp" : null
+    }
+}
