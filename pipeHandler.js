@@ -1,6 +1,7 @@
 ;(function () {
 
 function handlePipe() {
+    let DOMsprite = SPRITE.dom;
 
     let pipes = obstacles.filter(obstacle => {
         return (obstacle.type == 'pipe') ? true : false;
@@ -22,11 +23,11 @@ function handlePipe() {
     let pipeCenter = parseInt(LEVEL.variables.currentPipe[0].left) + parseInt(LEVEL.variables.currentPipe[0].width)/2 - 32;
 
     if (LEVEL.variables.animationCase == 0) {
-        if (parseInt(sprite.style.left) > pipeCenter + 5) {
+        if (parseInt(DOMsprite.style.left) > pipeCenter + 5) {
             XY.x0v0 = [XY.x0v0[0]-3,0];
             ANIMATE.animateSprite();
 
-        } else if (parseInt(sprite.style.left) < pipeCenter - 5) {
+        } else if (parseInt(DOMsprite.style.left) < pipeCenter - 5) {
             XY.x0v0 = [XY.x0v0[0]+3,0];
             ANIMATE.animateSprite();
 

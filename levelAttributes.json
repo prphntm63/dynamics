@@ -24,7 +24,19 @@
             "accelY" : 2,
             "maxVeloX" : 17,
             "maxVeloY" : 40,
-            "scrollCounter" : 30
+            "scrollCounter" : 30,
+            "sprite" : { 
+                "spriteHeight" : 120,
+                "spriteWidth" : 63,
+                "spriteSheetOffset" : {
+                    "walk" : ["-142px", "-270px", "-24px", "-270px"],
+                    "duck" : "-836px",
+                    "jump" : "-512px",
+                    "fall" : "-408px",
+                    "skid" : "-944px",
+                    "stand" : "-24px"
+                }
+            }
         },
         "var" : {
             "windowWidth" : null,
@@ -32,7 +44,6 @@
             "animationFrame" : null,
             "frame" : 0,
             "clock" : 0,
-            "onBlock" : false,
             "handlingAnimation" : false,
             "currentPipe" : null,
             "outputPipe" : null,
@@ -40,14 +51,45 @@
             "animationCase" : 0,
             "editingLevel": false,
             "mouseScrollCounter": 0
-        }
+        },
+        "obstacles" : [
+            {
+                "type": "platform",
+                "collision": "top",
+                "left" : "550",
+                "bottom": "0",
+                "height": "350",
+                "width": "900"
+            },
+            {
+                "type": "pipe",
+                "input": 1,
+                "output": 2,
+                "collision": "all",
+                "left": "740",
+                "bottom": "638",
+                "height": "150",
+                "width": "140"
+            },
+            {
+                "type": "pipe",
+                "input": 2,
+                "output": 1,
+                "collision": "all",
+                "left": "3040",
+                "bottom": "0",
+                "height": "350",
+                "width": "140"
+            }
+        ]
     },
 
     "sprite" : {
         "x0v0" : null, 
         "y0v0" : null,
         "dom" : null,
-        "spritePos" : null
+        "spritePos" : null,
+        "onBlock" : false
     },
 
     "edit" : {

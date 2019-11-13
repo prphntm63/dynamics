@@ -1,7 +1,7 @@
 ;(function () {
 
 function animateSprite () {
-    let sprite = SPRITE.dom;
+    let DOMsprite = SPRITE.dom;
     let keys = window.INPUT.keys;
     let constants = window.LEVEL.constants;
     let x0v0 = XY.x0v0;
@@ -10,56 +10,56 @@ function animateSprite () {
     // Map walking sprites to an array per their sequence
     let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
 
-    // Change direction of sprite when we press the left or right keys accordingly
+    // Change direction of DOMsprite when we press the left or right keys accordingly
     if (keys.leftKey) {
-        sprite.style.transform = 'scaleX(-1)'
+        DOMsprite.style.transform = 'scaleX(-1)'
     } else if (keys.rightKey) {
-        sprite.style.transform = 'scaleX(1)'
+        DOMsprite.style.transform = 'scaleX(1)'
     }
 
     // Check for special conditions such as ducking or jumping. 
     // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
     // if (keys.downKey) {
-    //     sprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+    //     DOMsprite.style.backgroundImage = 'url("/sprites/duck.gif")';
     // } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-    //     sprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+    //     DOMsprite.style.backgroundImage = 'url("/sprites/jump.gif")';
     // } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-    //     sprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+    //     DOMsprite.style.backgroundImage = 'url("/sprites/skid.gif")';
     // } else if (x0v0[1] == 0) {
-    //     sprite.style.backgroundImage = 'url("sprites/stand.gif")';
+    //     DOMsprite.style.backgroundImage = 'url("sprites/stand.gif")';
     // } else {
     //     let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
     //     if (animateTransition == 0) {
-    //         sprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
+    //         DOMsprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
     //         LEVEL.variables.frame += 1;
     //     }
     // }
 
-    sprite.style.backgroundImage = 'url("/sprites/spriteSheet.gif")'
-    // sprite.style.bottom = '90px';
+    DOMsprite.style.backgroundImage = 'url("/sprites/spriteSheet.gif")'
+    // DOMsprite.style.bottom = '90px';
     walkSprites = ['-142px', '-270px', '-24px', '-270px']
 
     if (keys.downKey) {
-        sprite.style.backgroundPositionX = '-836px';
+        DOMsprite.style.backgroundPositionX = '-836px';
     } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-        sprite.style.backgroundPositionX = '-408px';
+        DOMsprite.style.backgroundPositionX = '-408px';
     } else if (y0v0[0] < 0 && !LEVEL.variables.onBlock) {
-        sprite.style.backgroundPositionX = '-512px';
+        DOMsprite.style.backgroundPositionX = '-512px';
     } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-        sprite.style.backgroundPositionX = '-944px';
+        DOMsprite.style.backgroundPositionX = '-944px';
     } else if (x0v0[1] == 0) {
-        sprite.style.backgroundPositionX = '-24px';
+        DOMsprite.style.backgroundPositionX = '-24px';
     } else {
         let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
         if (animateTransition == 0) {
-            sprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%3];
+            DOMsprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%3];
             LEVEL.variables.frame += 1;
         }
     }
 
-    // Update sprite position in window
-    sprite.style.left = x0v0[0] + 'px';
-    sprite.style.bottom = y0v0[0] + 'px';
+    // Update DOMsprite position in window
+    DOMsprite.style.left = x0v0[0] + 'px';
+    DOMsprite.style.bottom = y0v0[0] + 'px';
 
     // Update input keys in window
     document.getElementById('left').style.backgroundColor = keys.leftKey?'red':'black';
@@ -79,6 +79,7 @@ class blockAnimateClass {
     }
 
     updateAnimation() {
+        
         if (this.animationFrame === 0 && this.block.type === 'block') {
             let newCoin = document.createElement('div');
             newCoin.classList.add('coin');
@@ -92,7 +93,7 @@ class blockAnimateClass {
         animationObject.style.bottom = parseInt(parseInt(this.block.bottom) + this.animationList[this.animationFrame]) + 'px'
 
         if (this.block.type === 'block') {
-            let coinObject = document.getElementById(this.block.id + 'coin')
+            var coinObject = document.getElementById(this.block.id + 'coin')
             coinObject.style.bottom = parseInt(this.block.bottom + 80*Math.sqrt(this.animationFrame)) + 'px'
         }
 
