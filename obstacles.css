@@ -43,7 +43,7 @@
 }
 
 .block {
-    background: url(window.location.href + 'textures/question.png');
+    background: url('./textures/question.png');
     background-size: 64px;
     padding: 0px;
     margin: 0px;
@@ -53,13 +53,13 @@
 }
 
 .block.used {
-    /* background: url(window.location.href + 'textures/question.png'); */
+    /* background: url('./textures/question.png'); */
     background: brown;
 }
 
 .floor {
     z-index: 998;
-    background: url(window.location.href + '/textures/grass-dirt.png');
+    background: url('./textures/grass-dirt.png');
     background-size: 100px;
     padding: 0px;
     margin: 0px;
@@ -67,14 +67,14 @@
 }
 
 .water {
-    background: url(window.location.href + '/textures/water.png');
+    background: url('./textures/water.png');
     background-size: 100px;
     padding: 0px;
     margin: 0px;
 }
 
 .obsidian {
-    background: url(window.location.href + '/textures/obsidian.png');
+    background: url('./textures/obsidian.png');
     background-size: 100px;
     padding: 0px;
     margin: 0px;
@@ -82,7 +82,7 @@
 }
 
 .dirt {
-    background: url(window.location.href + '/textures/dirt.jpg');
+    background: url('./textures/dirt.jpg');
     background-size: 100px;
     padding: 0px;
     margin: 0px;
@@ -90,7 +90,7 @@
 }
 
 .brick {
-    background: url(window.location.href + '/textures/brick2.png');
+    background: url('./textures/brick2.png');
     background-size: 64px;
     padding: 0px;
     margin: 0px;
@@ -101,7 +101,7 @@
     position: absolute;
     width: 64px;
     height: 64px;
-    background: url(window.location.href + /textures/coin.png);
+    background: url('./textures/coin.png');
     background-size: 64px;
     object-fit: contain;
     border-radius: 50%;
