@@ -71,7 +71,7 @@ body {
     justify-content: flex-start;
     width: 64px;
     height: 120px;
-    /* background-image: url('/sprites/stand.gif'); */
+    background-image: url(window.locaiton.href + '/sprites/stand.gif');
     background-repeat: no-repeat;
     background-size: auto 980px;
     background-position-y: -260px;
