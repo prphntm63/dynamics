@@ -8,7 +8,7 @@ function animateSprite () {
     let y0v0 = XY.y0v0;
 
     // Map walking sprites to an array per their sequence
-    let walkSprites = [window.location.href + 'url("/sprites/walk1.gif")', window.location.href + 'url("/sprites/walk2.gif")', window.location.href + 'url("/sprites/walk3.gif")', window.location.href + 'url("/sprites/walk2.gif")'];
+    let walkSprites = ['url(window.location.href + "/sprites/walk1.gif")', 'url(window.location.href + "/sprites/walk2.gif")', 'url(window.location.href + "/sprites/walk3.gif")', 'url(window.location.href + "/sprites/walk2.gif")'];
 
     // Change direction of DOMsprite when we press the left or right keys accordingly
     if (keys.leftKey) {
