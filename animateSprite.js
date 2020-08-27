@@ -8,7 +8,7 @@ function animateSprite () {
     let y0v0 = XY.y0v0;
 
     // Map walking sprites to an array per their sequence
-    let walkSprites = ['url("/sprites/walk1.gif")', 'url("/sprites/walk2.gif")', 'url("/sprites/walk3.gif")', 'url("/sprites/walk2.gif")'];
+    let walkSprites = [window.location.href + 'url("/sprites/walk1.gif")', window.location.href + 'url("/sprites/walk2.gif")', window.location.href + 'url("/sprites/walk3.gif")', window.location.href + 'url("/sprites/walk2.gif")'];
 
     // Change direction of DOMsprite when we press the left or right keys accordingly
     if (keys.leftKey) {
@@ -20,13 +20,13 @@ function animateSprite () {
     // Check for special conditions such as ducking or jumping. 
     // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
     // if (keys.downKey) {
-    //     DOMsprite.style.backgroundImage = 'url("/sprites/duck.gif")';
+    //     DOMsprite.style.backgroundImage = 'url(window.location.href + "/sprites/duck.gif")';
     // } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-    //     DOMsprite.style.backgroundImage = 'url("/sprites/jump.gif")';
+    //     DOMsprite.style.backgroundImage = 'url(window.location.href + "/sprites/jump.gif")';
     // } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-    //     DOMsprite.style.backgroundImage = 'url("/sprites/skid.gif")';
+    //     DOMsprite.style.backgroundImage = 'url(window.location.href + "/sprites/skid.gif")';
     // } else if (x0v0[1] == 0) {
-    //     DOMsprite.style.backgroundImage = 'url("sprites/stand.gif")';
+    //     DOMsprite.style.backgroundImage = 'url(window.location.href + "sprites/stand.gif")';
     // } else {
     //     let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
     //     if (animateTransition == 0) {
@@ -35,7 +35,7 @@ function animateSprite () {
     //     }
     // }
 
-    DOMsprite.style.backgroundImage = 'url("/sprites/spriteSheet.gif")'
+    DOMsprite.style.backgroundImage = 'url(window.location.href + "/sprites/spriteSheet.gif")'
     // DOMsprite.style.bottom = '90px';
     walkSprites = ['-142px', '-270px', '-24px', '-270px']
 
