@@ -7,9 +7,6 @@ function animateSprite () {
     let x0v0 = XY.x0v0;
     let y0v0 = XY.y0v0;
 
-    // Map walking sprites to an array per their sequence
-    let walkSprites = ['url("./sprites/walk1.gif")', 'url("./sprites/walk2.gif")', 'url("./sprites/walk3.gif")', 'url("./sprites/walk2.gif")'];
-
     // Change direction of DOMsprite when we press the left or right keys accordingly
     if (keys.leftKey) {
         DOMsprite.style.transform = 'scaleX(-1)'
@@ -17,42 +14,50 @@ function animateSprite () {
         DOMsprite.style.transform = 'scaleX(1)'
     }
 
-    // Check for special conditions such as ducking or jumping. 
-    // Note that we do need x0v0, y0v0, frame, onBlock, and clock to be document scoped (which they are)
-    // if (keys.downKey) {
-    //     DOMsprite.style.backgroundImage = 'url("./sprites/duck.gif")';
-    // } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-    //     DOMsprite.style.backgroundImage = 'url("./sprites/jump.gif")';
-    // } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-    //     DOMsprite.style.backgroundImage = 'url("./sprites/skid.gif")';
-    // } else if (x0v0[1] == 0) {
-    //     DOMsprite.style.backgroundImage = 'url("./sprites/stand.gif")';
-    // } else {
-    //     let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
-    //     if (animateTransition == 0) {
-    //         DOMsprite.style.backgroundImage = walkSprites[LEVEL.variables.frame%3];
-    //         LEVEL.variables.frame += 1;
-    //     }
-    // }
+    /* 
+        stand  0
+        jump1  
+        jump2  
+        crouch 
+        run1   256
+        run2   
+        run3   
+        run4   
+        run5   
+        run6   
+        type1  
+        type2  
+    
+    */
 
-    DOMsprite.style.backgroundImage = 'url("./sprites/spriteSheet.gif")'
-    // DOMsprite.style.bottom = '90px';
-    walkSprites = ['-142px', '-270px', '-24px', '-270px']
+    DOMsprite.style.backgroundImage = 'url("./sprites/sprites.png")'
+    const animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
+    const walkSprites = ['-256px', '-320px', '-384px', '-448px', '-512px', '-576px']
+    const typeSprites = ['-640px', '-704px']
 
     if (keys.downKey) {
-        DOMsprite.style.backgroundPositionX = '-836px';
+        DOMsprite.style.backgroundPositionX = '-192px';
+        LEVEL.variables.frame = 0;
     } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-        DOMsprite.style.backgroundPositionX = '-408px';
+        DOMsprite.style.backgroundPositionX = '-128px';
+        LEVEL.variables.frame = 0;
     } else if (y0v0[0] < 0 && !LEVEL.variables.onBlock) {
-        DOMsprite.style.backgroundPositionX = '-512px';
+        DOMsprite.style.backgroundPositionX = '-64px';
+        LEVEL.variables.frame = 0;
     } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-        DOMsprite.style.backgroundPositionX = '-944px';
-    } else if (x0v0[1] == 0) {
-        DOMsprite.style.backgroundPositionX = '-24px';
-    } else {
-        let animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
+        DOMsprite.style.backgroundPositionX = '-128px';
+        LEVEL.variables.frame = 0;
+    } else if (x0v0[1] == 0 && keys.bonusKey) {
         if (animateTransition == 0) {
-            DOMsprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%3];
+            DOMsprite.style.backgroundPositionX = typeSprites[LEVEL.variables.frame%(typeSprites.length - 1)];
+            LEVEL.variables.frame += 1;
+        }
+    } else if (x0v0[1] == 0) {
+        DOMsprite.style.backgroundPositionX = '0px';
+        LEVEL.variables.frame = 0;
+    }  else {
+        if (animateTransition == 0) {
+            DOMsprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%(walkSprites.length - 1)];
             LEVEL.variables.frame += 1;
         }
     }
