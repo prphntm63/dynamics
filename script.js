@@ -11,7 +11,7 @@ const unsubscribe = store.subscribe(() => {
     for (key in currentStore.input.keys) {
         stringOut += `${key}: ${currentStore.input.keys[key]}, `
     }
-    console.log(stringOut)
+    // console.log(stringOut)
 })
 
 ;(function() {
@@ -44,6 +44,8 @@ const unsubscribe = store.subscribe(() => {
         x0v0 : [screen.width/4,0], //Initial position. We want to 'drop down' into the level
         y0v0 : [screen.height*.8,0],
         animationFrame : undefined,
+        fpsInterval : 1000 / 60,
+        skyChangeInterval : 60 * 10
     }
 
     LEVEL.variables = {
@@ -57,7 +59,10 @@ const unsubscribe = store.subscribe(() => {
         animationCase : 0,
         scrollCounter : 30,
         editingLevel: false,
-        mouseScrollCounter: 0
+        mouseScrollCounter: 0,
+        currentGradient: 8,
+        lastGradientClock : 0,
+        lastGradientIndex : 0
     }
 
     window.SPRITE = window.SPRITE || {}
@@ -78,25 +83,34 @@ const unsubscribe = store.subscribe(() => {
 
     LEVEL.animate = animate
 
+    let tLast = Date.now()
+
     function animate(timestamp) { //Repeat to animate each frame
+        let tNow = Date.now()
+        elapsed = tNow - tLast
 
-        window.XY.updatePosX(); //Calculate X and Y positions
-        window.XY.updatePosY();
+        if (elapsed > LEVEL.constants.fpsInterval) {     
 
-        LEVEL.variables.onBlock = false; //Reset block physics. Assume we are not on a block. This is overridden in 'checkCollision()' if on a block
+            window.XY.updatePosX(); //Calculate X and Y positions
+            window.XY.updatePosY();
 
-        if (LEVEL.variables.handlingAnimation) {
-            ANIMATE.handlePipe();
-        } else {
-            ANIMATE.checkCollision(SPRITE.spritePos(), obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
-            ANIMATE.animateSprite(); //Update sprite animations and update sprite position in window
-            ANIMATE.handleBlocks();
-            ANIMATE.scroll(); //Update scroll position, if necessary
+            LEVEL.variables.onBlock = false; //Reset block physics. Assume we are not on a block. This is overridden in 'checkCollision()' if on a block
+
+            if (LEVEL.variables.handlingAnimation) {
+                ANIMATE.handlePipe();
+            } else {
+                ANIMATE.checkCollision(SPRITE.spritePos(), obstacles); //Determine if there is an obstacle nearby, and if so, if a collision occurs.
+                ANIMATE.animateSprite(); //Update sprite animations and update sprite position in window
+                ANIMATE.handleBlocks();
+                ANIMATE.scroll(); //Update scroll position, if necessary
+            }
+
+            // window.SKY.gradient(); //update sky
+
+            tLast = tNow - (elapsed % LEVEL.constants.fpsInterval)
         }
 
-        
         LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Restart animation
-
         LEVEL.variables.clock += 1; //Cycle clock
     }
 
@@ -123,16 +137,16 @@ function main() {
     document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
     document.body.addEventListener('mousedown', getMouseDown)
     document.body.addEventListener('mouseup', getMouseUp)
-    window.addEventListener('wheel', event => {
-        LEVEL.variables.mouseScrollCounter += Math.sign(event.deltaY)
-        if (LEVEL.variables.mouseScrollCounter === 15) {
-            ANIMATE.scrollScreenRight(event);
-            LEVEL.variables.mouseScrollCounter = 0;
-        } else if (LEVEL.variables.mouseScrollCounter === -15) {
-            ANIMATE.scrollScreenLeft(event);
-            LEVEL.variables.mouseScrollCounter = 0;
-        }
-    })
+    // window.addEventListener('wheel', event => {
+    //     LEVEL.variables.mouseScrollCounter += Math.sign(event.deltaY)
+    //     if (LEVEL.variables.mouseScrollCounter === 15) {
+    //         ANIMATE.scrollScreenRight(event);
+    //         LEVEL.variables.mouseScrollCounter = 0;
+    //     } else if (LEVEL.variables.mouseScrollCounter === -15) {
+    //         ANIMATE.scrollScreenLeft(event);
+    //         LEVEL.variables.mouseScrollCounter = 0;
+    //     }
+    // })
 
     document.getElementById('edit-block').addEventListener('mousedown', selectBlock)
     document.getElementById('edit-platform').addEventListener('mousedown', selectPlatform)

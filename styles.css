@@ -7,14 +7,32 @@ body {
 }
 
 #background-container {
+    background: linear-gradient(270deg, #d0f4ff, #b6d4ec, #9dc6e6, #b7d0d4, #ced7d7);
     position: fixed;
     left: 0px;
     top: 0px;
     height: 100vh;
-/*     background: url('/backgrounds/hills.jpg') center repeat-x; */
-    background-size: auto 100%;
+    background-size: 1000% 1000%;
     overflow: hidden;
-    /* transition: background-linear-gradient 5s; */
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
 #level-container {
@@ -69,12 +87,12 @@ body {
     position: absolute;
     display: flex;
     justify-content: flex-start;
-    width: 64px;
-    height: 120px;
-    background-image: url('./sprites/stand.gif');
+    width: 58px;
+    height: 100px;
+    background-image: url('./sprites/sprites.png');
     background-repeat: no-repeat;
-    background-size: auto 980px;
-    background-position-y: -260px;
+    background-size: 768px 100px;
+    background-position-y: 0px;
     z-index: 999;
     overflow: visible;
     border: 1px solid white;
