@@ -14,22 +14,6 @@ function animateSprite () {
         DOMsprite.style.transform = 'scaleX(1)'
     }
 
-    /* 
-        stand  0
-        jump1  
-        jump2  
-        crouch 
-        run1   256
-        run2   
-        run3   
-        run4   
-        run5   
-        run6   
-        type1  
-        type2  
-    
-    */
-
     DOMsprite.style.backgroundImage = 'url("./sprites/sprites.png")'
     const animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
     const walkSprites = ['-256px', '-320px', '-384px', '-448px', '-512px', '-576px']

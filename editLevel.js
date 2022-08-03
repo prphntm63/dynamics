@@ -13,10 +13,8 @@ function editLevel(evt) {
 
 
         window.cancelAnimationFrame(LEVEL.constants.animationFrame); //Pause animation when editing level
-        
-        console.log('editing! ' + EDIT.selectedObstacle)
-    } else if (!LEVEL.variables.editingLevel) {
 
+    } else if (!LEVEL.variables.editingLevel) {
         XY.y0v0[0] = parseInt(window.innerHeight + 150);
 
         SPRITE.dom.classList.toggle('sprite-hidden', LEVEL.variables.editingLevel);
@@ -25,13 +23,7 @@ function editLevel(evt) {
         document.getElementById('grid-container').classList.remove('hidden')
 
         LEVEL.constants.animationFrame = window.requestAnimationFrame(LEVEL.animate); //Resume animation
-        
-        console.log('done editing!')
     }
-
-    
-
-    
 }
 
 function selectBlock(event) {
@@ -61,12 +53,15 @@ function selectBrick(event) {
 
 function getMouseDown(event) {
     event.stopPropagation()
-    if (!LEVEL.variables.editingLevel) return //Don't allow mouse selection events on body if we are not editing
+
+    //Don't allow mouse selection events on body if we are not editing
+    if (!LEVEL.variables.editingLevel) return 
     EDIT.mouseDown = [event.clientX, event.clientY]
 }
 function getMouseUp(event) {
-    if (EDIT.mouseDown == undefined) return //Don't allow mouse selection events on body if we are not editing
-    if (!LEVEL.variables.editingLevel) return //Don't allow mouse selection events on body if we are not editing
+    //Don't allow mouse selection events on body if we are not editing
+    if (EDIT.mouseDown == undefined) return 
+    if (!LEVEL.variables.editingLevel) return
 
     let mapDiv = document.getElementById('level-container').getBoundingClientRect()
 
@@ -84,9 +79,11 @@ function getMouseUp(event) {
         obstacleHeight = 64;
     }
 
-    if (obstacleWidth < 32 || obstacleHeight < 32) return //Remove zero width/height elements
+    //Remove zero width/height elements
+    if (obstacleWidth < 32 || obstacleHeight < 32) return 
 
-    obstacles.push( //Add new obstacle to array
+    //Add new obstacle to array
+    obstacles.push( 
         {
             type: EDIT.selectedObstacle,
             collision: (EDIT.selectedObstacle == 'platform' || EDIT.selectedObstacle == 'platform2') ? 'top' : 'all',
@@ -97,8 +94,10 @@ function getMouseUp(event) {
         }
     )
 
-    generateObstacles(); //Regen obstacles
+    //Regen obstacles
+    generateObstacles(); 
 
-    EDIT.mouseDown = undefined; //Reset mouse events
+    //Reset mouse events
+    EDIT.mouseDown = undefined; 
     EDIT.mouseUp = undefined;
 }

@@ -1,5 +1,4 @@
 obstacles = [
-
     {
         type: 'platform',
         collision: 'top',
@@ -116,7 +115,8 @@ function generateObstacles() {
     let levelContainer = document.getElementById('level-container');
     obstacleList = levelContainer.querySelectorAll('.obstacle')
 
-    obstacleList.forEach(obstacle => { //Delete all obstacles to avoid duplicates
+    obstacleList.forEach(obstacle => { 
+        //Delete all obstacles to avoid duplicates
         obstacle.parentElement.removeChild(obstacle);
     })
 
@@ -163,7 +163,6 @@ function generateObstacles() {
     obstacles.forEach(obstacle => {
 
         if ((obstacle.type != 'pipe') && (obstacle.type != 'floor')) {
-            // console.log(obstacle.type)
             obstacle.left = Math.round(obstacle.left/64)*64 +1
             obstacle.bottom = Math.round(obstacle.bottom/64)*64 +1
             obstacle.width = Math.ceil(obstacle.width/64)*64 - 2
@@ -182,6 +181,7 @@ function generateObstacles() {
         newObstacle.style.width = obstacle.width + 'px';
         newObstacle.style.height = obstacle.height + 'px';
 
+        // I should have just made these SVGs lol
         if (obstacle.type === 'pipe') {
             let pipeDivElements
             if (obstacle.color === 'blue') {
@@ -189,7 +189,7 @@ function generateObstacles() {
                     {width:3, color:'66b'},
                     {width:2, color:'99c'},
                     {width:2, color:'bbe'},
-                    {width:3, color:'fff'},
+                    {width:3, color:'ddf'},
                     {width:5, color:'bbe'},
                     {width:4, color:'99c'},
                     {width:1, color:'66b'},
@@ -201,7 +201,7 @@ function generateObstacles() {
                     {width:3, color:'666'},
                     {width:2, color:'999'},
                     {width:2, color:'bbb'},
-                    {width:3, color:'fff'},
+                    {width:3, color:'eee'},
                     {width:5, color:'bbb'},
                     {width:4, color:'999'},
                     {width:1, color:'666'},
@@ -213,7 +213,7 @@ function generateObstacles() {
                     {width:3, color:'060'},
                     {width:2, color:'090'},
                     {width:2, color:'0b0'},
-                    {width:3, color:'fff'},
+                    {width:3, color:'9f9'},
                     {width:5, color:'0b0'},
                     {width:4, color:'090'},
                     {width:1, color:'060'},
@@ -245,14 +245,11 @@ function generateObstacles() {
                 })
             }
             newObstacle.appendChild(pipeBottom)
-            
-            // console.log(obstacle.input + '=> ' + obstacle.output + ',' + obstacle.warp)
         } 
 
         levelContainer.append(newObstacle);
         idCounter++;
     })
-    // console.log(obstacles)
 }
 
 function generatePipeDivs(widthColorArray, parent) {
