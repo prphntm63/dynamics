@@ -19,6 +19,18 @@ body {
     animation: AnimationName 30s ease infinite;
 }
 
+#scenery-container {
+    position: fixed;
+    left: 0px;
+    bottom: -10%;
+    width: 600%;
+    height: 50vh;
+    background: url('/backgrounds/hills.svg') center repeat-x;
+    background-size: auto 60%;
+    overflow: hidden;
+    z-index: -1;
+}
+
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -87,7 +99,7 @@ body {
     position: absolute;
     display: flex;
     justify-content: flex-start;
-    width: 58px;
+    width: 60px;
     height: 100px;
     background-image: url('./sprites/sprites.png');
     background-repeat: no-repeat;
@@ -95,7 +107,6 @@ body {
     background-position-y: 0px;
     z-index: 999;
     overflow: visible;
-    border: 1px solid white;
 }
 
 .sprite-hidden {

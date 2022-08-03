@@ -3,7 +3,7 @@
 function scroll() {
     let spritePos = SPRITE.spritePos()
     let levelContainer = document.getElementById('level-container');
-    let backgroundContainer = document.getElementById('background-container');
+    let backgroundContainer = document.getElementById('scenery-container');
     let mapDiv = levelContainer.getBoundingClientRect();
     let leftScroll = -mapDiv.left + 0.2*parseInt(window.innerWidth);
     let rightScroll = -mapDiv.left + 0.8*parseInt(window.innerWidth);

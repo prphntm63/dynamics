@@ -1,19 +1,3 @@
-// import { createStore } from 'redux'
-// import reduxState from './reducers'
-
-const {createStore, compose} = Redux;
-
-const store = createStore(reduxState)
-
-const unsubscribe = store.subscribe(() => {
-    let currentStore = store.getState()
-    let stringOut = ''
-    for (key in currentStore.input.keys) {
-        stringOut += `${key}: ${currentStore.input.keys[key]}, `
-    }
-    // console.log(stringOut)
-})
-
 ;(function() {
     window.INPUT = window.INPUT || {}
 
