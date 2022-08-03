@@ -25,7 +25,7 @@ body {
     bottom: -10%;
     width: 600%;
     height: 50vh;
-    background: url('/backgrounds/hills.svg') center repeat-x;
+    background: url('./backgrounds/hills.svg') center repeat-x;
     background-size: auto 60%;
     overflow: hidden;
     z-index: -1;
