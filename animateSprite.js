@@ -33,7 +33,7 @@ function animateSprite () {
         LEVEL.variables.frame = 0;
     } else if (x0v0[1] == 0 && keys.bonusKey) {
         if (animateTransition == 0) {
-            DOMsprite.style.backgroundPositionX = typeSprites[LEVEL.variables.frame%(typeSprites.length - 1)];
+            DOMsprite.style.backgroundPositionX = typeSprites[0.5*LEVEL.variables.frame%(typeSprites.length)];
             LEVEL.variables.frame += 1;
         }
     } else if (x0v0[1] == 0) {
@@ -41,7 +41,7 @@ function animateSprite () {
         LEVEL.variables.frame = 0;
     }  else {
         if (animateTransition == 0) {
-            DOMsprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%(walkSprites.length - 1)];
+            DOMsprite.style.backgroundPositionX = walkSprites[LEVEL.variables.frame%(walkSprites.length)];
             LEVEL.variables.frame += 1;
         }
     }
