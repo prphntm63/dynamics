@@ -6,6 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
@@ -21,10 +26,21 @@
     <script src="scroll.js"></script>
     <script src="pipeHandler.js"></script>
     <script src="editLevel.js"></script>
+    <script src="pageContent.js"></script>
     
-    <title>Level 1-1</title>
+    <title>Super Matt World</title>
 </head>
 <body>
+    <div id="messageOverlay">
+        <div id="messageBox" class="messageBox">
+            <div id="messageText" class="messageText"></div>
+            <div 
+                class="messageCloseButton"
+                onclick="document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');"
+            >CLOSE</div>
+        </div>
+    </div>
+
     <div id = 'background-container'>
         <div id='level-container'>
             <div class='sprite' id='sprite'></div>

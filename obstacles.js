@@ -1,113 +1,10 @@
 obstacles = [
     {
-        type: 'platform',
-        collision: 'top',
-        left : '550',
-        bottom: '0',
-        height: '350',
-        width: '900'
-    },
-
-    {
-        type: 'platform2',
-        collision: 'top',
-        left : '250',
-        bottom: '0',
-        height: '150',
-        width: '400'
-    },
-
-    {
-        type: 'platform2',
-        collision: 'top',
-        left : '1250',
-        bottom: '0',
-        height: '250',
-        width: '500'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '700',
-        bottom: '550',
-        height: '64',
-        width: '500'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '300',
-        bottom: '650',
-        height: '64',
-        width: '100'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '1300',
-        bottom: '750',
-        height: '64',
-        width: '64'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '1450',
-        bottom: '900',
-        height: '64',
-        width: '64'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '1600',
-        bottom: '750',
-        height: '64',
-        width: '64'
-    },
-
-    {
-        type: 'brick',
-        collision: 'all',
-        left : '1750',
-        bottom: '600',
-        height: '64',
-        width: '64'
-    },
-
-    {
         type: 'floor',
         left : '0',
         bottom: '-40',
         height: '50',
         width: '10000'
-    },
-
-    {
-        type: 'pipe',
-        input: 1,
-        output: 2,
-        collision: 'all',
-        left: '740',
-        bottom: '638',
-        height: '150',
-        width: '140'
-    },
-
-    {
-        type: 'pipe',
-        input: 2,
-        output: 1,
-        collision: 'all',
-        left: '3040',
-        bottom: '0',
-        height: '350',
-        width: '140'
     }
 ]
 
@@ -159,6 +56,7 @@ function generateObstacles() {
     })
 
     obstacles = filteredObstacles.concat(newBlockObstacles)
+    obstacles = obstacles.sort((a,b) => b.bottom - a.bottom) // draw from bottom to top to fix collision bugs
 
     obstacles.forEach(obstacle => {
 
@@ -170,8 +68,15 @@ function generateObstacles() {
         }
 
         let newObstacle = document.createElement('div');
-        newObstacle.classList.add(obstacle.type);
-        if (obstacle.used) newObstacle.classList.add('used')
+        if (obstacle.html) {
+            newObstacle.classList.add(obstacle.type);
+            newObstacle.innerHTML = obstacle.html
+        } else {
+            newObstacle.classList.add(obstacle.type);
+        }
+        if (obstacle.used) {
+            newObstacle.classList.add('used')
+        }
         newObstacle.classList.add('obstacle');
         obstacle.id = 'obstacle' + idCounter;
         newObstacle.id = obstacle.id;
@@ -231,6 +136,7 @@ function generateObstacles() {
                 pipeTopText.innerText = obstacle.text;
                 pipeTopText.classList.add('pipe-top-text')
                 pipeTop.appendChild(pipeTopText)
+                newObstacle.style.cursor = "pointer"
             }
             newObstacle.appendChild(pipeTop)
 
@@ -266,7 +172,7 @@ function generatePipeDivs(widthColorArray, parent) {
 function generateNavPipes(obstacleList) {
     for (let i=0; i<LEVEL.constants.screens; i++) {
         for (let j=0; j<LEVEL.constants.screens; j++) {
-            let navLinks = ['Home', 'About', 'Brewing', 'Work', 'Blog']
+            let navLinks = ['Start', 'Bio', 'Brew', 'Code']
             let pipesWidth = 0.7*parseInt(LEVEL.constants.windowWidth)
             let pipesOffset = pipesWidth/(LEVEL.constants.screens)
             

@@ -72,6 +72,16 @@ function getMouseUp(event) {
     let obstacleWidth = Math.ceil(Math.abs((EDIT.mouseDown[0] - EDIT.mouseUp[0]) + 1)/64 )*64
     let obstacleHeight = Math.ceil(Math.abs((EDIT.mouseDown[1] - EDIT.mouseUp[1]) + 1)/64 )*64
 
+    // Middle click to delete obstacles
+    if (event.button === 1) {
+        let newObstacles = obstacles.filter(obstacle => !(parseInt(obstacle.bottom) == obstacleBottom-3 && parseInt(obstacle.left) == obstacleLeft+1))
+        obstacles = newObstacles
+
+        localStorage.setItem("obstacles", obstacles)
+        generateObstacles()
+        return false
+    }
+
     if (EDIT.selectedObstacle == 'block') {
         obstacleLeft = Math.floor((EDIT.mouseUp[0]- parseInt(mapDiv.left))/64)*64;
         obstacleBottom =  window.innerHeight - Math.ceil(EDIT.mouseUp[1]/64)*64;
@@ -93,6 +103,8 @@ function getMouseUp(event) {
             width: obstacleWidth
         }
     )
+
+    localStorage.setItem("obstacles", obstacles)
 
     //Regen obstacles
     generateObstacles(); 

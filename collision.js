@@ -5,6 +5,12 @@ function checkCollision(spritePos, obstacles) {
     let preventSideCollision = false;
     let bottomCollisionPosition = [];
 
+    // Check for goalpost collision
+    const goalbarPosition = (LEVEL.constants.screens * LEVEL.constants.windowWidth) + 248
+    if (spritePos.right > goalbarPosition) {
+        LEVEL.variables.goalbarBroken = true
+    }
+
     for (obstacleKey in obstacles) {
         let obstacle = obstacles[obstacleKey];
         obstacle.bottom = parseInt(obstacle.bottom);
@@ -13,7 +19,6 @@ function checkCollision(spritePos, obstacles) {
         obstacle.right = parseInt(obstacle.left) + parseInt(obstacle.width);
 
         if ((spritePos.right > obstacle.left) && (spritePos.left < obstacle.right)) {
-
             switch (obstacle.collision) {
                 case 'all': //Check for collisions on all sides
                         if (spritePos.top > obstacle.bottom) {
@@ -30,9 +35,13 @@ function checkCollision(spritePos, obstacles) {
 
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 1)) ) { //Check for bottom collision
                                 // XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
-                                if (((obstacle.type == 'block' && !obstacle.used) || obstacle.type == 'brick') && (spritePos.left > obstacle.left - 48 && spritePos.right < obstacle.right + 48 )) {
+                                if (((obstacle.type == 'block' && !obstacle.used) || obstacle.type == 'brick' || obstacle.type == 'messagebox') && (spritePos.left > obstacle.left - 48 && spritePos.right < obstacle.right + 48 )) {
                                     obstacle.used = true;
                                     let myBlock = new ANIMATE.blockAnimateClass(obstacle)
+
+                                    if (obstacle.type === 'messagebox') {
+                                        obstacle.activate()
+                                    }
                                 }
 
                                 preventSideCollision = true;

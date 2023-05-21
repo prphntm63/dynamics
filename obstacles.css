@@ -42,68 +42,54 @@
     
 }
 
-.block {
-    background: url('./textures/question.png');
+.messagebox {
+    background: url('./textures/message_box.png');
     background-size: 64px;
     padding: 0px;
     margin: 0px;
-    border: 1px solid black;
     border-radius: 5px;
     z-index: 5;
+    image-rendering: pixelated;
+}
+
+.block {
+    background: url('./textures/question.gif');
+    background-size: 64px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 5px;
+    z-index: 5;
+    image-rendering: pixelated;
 }
 
 .block.used {
-    /* background: url('./textures/question.png'); */
-    background: brown;
+    background: url('./textures/dead_block.png');
+    background-size: 64px;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 5px;
+    z-index: 5;
+    image-rendering: pixelated;
 }
 
 .floor {
     z-index: 998;
-    background: url('./textures/grass-dirt.png');
+    background: olivedrab;
     background-size: 100px;
     padding: 0px;
     margin: 0px;
     z-index: 1002;
-}
-
-.water {
-    background: url('./textures/water.png');
-    background-size: 100px;
-    padding: 0px;
-    margin: 0px;
-}
-
-.obsidian {
-    background: url('./textures/obsidian.png');
-    background-size: 100px;
-    padding: 0px;
-    margin: 0px;
-    border: 1px solid black;
-}
-
-.dirt {
-    background: url('./textures/dirt.jpg');
-    background-size: 100px;
-    padding: 0px;
-    margin: 0px;
-    border: 1px solid black;
-}
-
-.brick {
-    background: url('./textures/brick2.png');
-    background-size: 64px;
-    padding: 0px;
-    margin: 0px;
-    border: 1px solid black;
+    image-rendering: pixelated;
 }
 
 .coin {
     position: absolute;
     width: 64px;
     height: 64px;
-    background: url('./textures/coin.png');
+    background: url('./textures/coin.gif');
     background-size: 64px;
     object-fit: contain;
     border-radius: 50%;
     z-index: 4;
+    image-rendering: pixelated;
 }

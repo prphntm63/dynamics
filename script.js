@@ -15,10 +15,11 @@
     window.LEVEL = window.LEVEL || {}
 
     LEVEL.constants = {
-        screens : 5,
+        screens : 4,
         animateInterval : 4,
         windowWidth : undefined,
         levelWidth: undefined,
+        goalpostWidth: 500,
         jumpVelocity : 35,
         accelX : 1,
         decelX : 3,
@@ -46,7 +47,10 @@
         mouseScrollCounter: 0,
         currentGradient: 8,
         lastGradientClock : 0,
-        lastGradientIndex : 0
+        lastGradientIndex : 0,
+        goalbarHeight: 0,
+        goalbarDirection: 1,
+        goalbarBroken: false
     }
 
     window.SPRITE = window.SPRITE || {}
@@ -87,6 +91,7 @@
                 ANIMATE.animateSprite(); //Update sprite animations and update sprite position in window
                 ANIMATE.handleBlocks();
                 ANIMATE.scroll(); //Update scroll position, if necessary
+                ANIMATE.goalbar();
             }
 
             // window.SKY.gradient(); //update sky
@@ -121,6 +126,8 @@ function main() {
     document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
     document.body.addEventListener('mousedown', getMouseDown)
     document.body.addEventListener('mouseup', getMouseUp)
+    
+    // TODO: Put this in settings
     // window.addEventListener('wheel', event => {
     //     LEVEL.variables.mouseScrollCounter += Math.sign(event.deltaY)
     //     if (LEVEL.variables.mouseScrollCounter === 15) {
@@ -145,15 +152,25 @@ function main() {
 
 function generateLevel() {
     LEVEL.constants.windowWidth = window.innerWidth;
-    LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth)
+    LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth) + LEVEL.constants.goalpostWidth
+    
+    renderHtmlInTargetScreen(0, generateMainLogoContent())
+    renderHtmlInTargetScreen(1, generateMattScreenContent(), "bottom")
+    renderHtmlInTargetScreen(1, generateBioTitleContent(), 15)
+    renderHtmlInTargetScreen(2, generateBrewingTitleContent(), 5)
+    renderHtmlInTargetScreen(3, generateCodeTitleContent(), 10)
+
+    generateMessageBox(obstacles, 1, "Testing 123 <a href=https://google.com>Test link here</a> and more stuff")
+    generateMessageBox(obstacles, 2, "Brewing text here <a href=https://google.com>Test link here</a> and more stuff")
+    generateMessageBox(obstacles, 3, "Code text here <a href=https://google.com>Test link here</a> and more stuff")
     
     generateNavPipes(obstacles);
+    renderBrewingScreenContent(obstacles)
+    renderCodeScreenContent(obstacles)
     generateObstacles();
+    generateGoalposts()
+    
 
-    document.getElementById('level-container').style.width = parseInt(LEVEL.constants.windowWidth * LEVEL.constants.screens + 1) + 'px';
+    document.getElementById('level-container').style.width = parseInt(LEVEL.constants.windowWidth * LEVEL.constants.screens + LEVEL.constants.goalpostWidth + 1) + 'px';
     document.getElementById('background-container').style.width = parseInt(0.75 * LEVEL.constants.windowWidth * LEVEL.constants.screens + 1) + 'px';
 }
-
-
-
-    

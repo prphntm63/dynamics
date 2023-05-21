@@ -83,7 +83,7 @@ class blockAnimateClass {
 
         if (this.block.type === 'block') {
             var coinObject = document.getElementById(this.block.id + 'coin')
-            coinObject.style.bottom = parseInt(this.block.bottom + 80*Math.sqrt(this.animationFrame)) + 'px'
+            coinObject.style.bottom = parseInt(this.block.bottom + 50*Math.sqrt(this.animationFrame)) + 'px'
         }
 
         if (this.animationFrame <= this.animationList.length) {
@@ -106,12 +106,35 @@ function animateBlocks() {
     }
 }
 
+function animateGoalbar() {
+    const goalbarSpeed = 5
+
+    if (window.LEVEL.variables.goalbarBroken) {
+        if (document.getElementById('goalBar').getAttribute("src").includes('dust')) return
+
+        document.getElementById('goalBar').setAttribute("src", "textures/goalposts_dust_once.gif")
+        return
+    }
+
+    if ((window.LEVEL.variables.goalbarDirection * goalbarSpeed) + window.LEVEL.variables.goalbarHeight > 512) {
+        window.LEVEL.variables.goalbarHeight = 512
+        window.LEVEL.variables.goalbarDirection *= -1
+    } else if ((window.LEVEL.variables.goalbarDirection * goalbarSpeed) + window.LEVEL.variables.goalbarHeight < 0 ) {
+        window.LEVEL.variables.goalbarHeight = 0
+        window.LEVEL.variables.goalbarDirection *= -1
+    } else {
+        window.LEVEL.variables.goalbarHeight += (window.LEVEL.variables.goalbarDirection * goalbarSpeed)
+    }
+
+    document.getElementById('goalBar').style.bottom = window.LEVEL.variables.goalbarHeight + 'px'
+}
+
 // **********  EXPORTS  **********
 window.ANIMATE = window.ANIMATE || {}
 window.ANIMATE.animateSprite = animateSprite
 window.ANIMATE.blockAnimations = [];
 window.ANIMATE.blockAnimateClass = blockAnimateClass
 window.ANIMATE.handleBlocks = animateBlocks
-
+window.ANIMATE.goalbar = animateGoalbar
 
 })()
