@@ -25,32 +25,97 @@ function renderHtmlInTargetScreen(screenId, innerHtml, position="middle") {
 
 function generateMainLogoContent (){
   return `
-  <image src="/images/super.png" style="max-width:40%;"/>
-  <image src="/images/matt_world.png" />
+  <image src="images/super.png" style="max-width:40%;"/>
+  <image src="images/matt_world.png" />
   `
 }
 
 function generateBioTitleContent (){
   return `
-  <image src="/images/about_me.png" />
+  <image src="images/about_me.png" />
   `
 }
 
-function generateMattScreenContent (obstaclesList){
+function generateHouse (){
   return `
-  <image src="/images/house.png" style="width:75%;max-width:900px;image-rendering: pixelated;"/>
+  <image src="images/house.png" style="width:75%;max-width:900px;image-rendering: pixelated;"/>
   `
+}
+
+function generateAboutMeObstacles (obstaclesList, screenId = 1) {
+  const boundingBoxWidth = 25*Math.round((0.4*parseInt(LEVEL.constants.windowWidth))/25)
+  const boundingBoxOffset = 25*Math.round(((screenId * LEVEL.constants.windowWidth) + 0.25*boundingBoxWidth)/25)
+  const windowHeight = window.innerHeight
+
+  obstaclesList.push({
+    type: 'platform2',
+    collision: 'top',
+    left: boundingBoxOffset + 0.3*boundingBoxWidth,
+    bottom: 0,
+    height: 0.2*windowHeight,
+    width: 0.6*boundingBoxWidth
+  }, {
+    type: 'platform',
+    collision: 'top',
+    left: boundingBoxOffset + 0.7*boundingBoxWidth,
+    bottom: 0,
+    height: 0.35*windowHeight,
+    width: 0.8*boundingBoxWidth
+  }, {
+    type: 'block',
+    collision: 'all',
+    left: boundingBoxOffset + boundingBoxWidth,
+    bottom: 0.35*windowHeight + 192,
+    height: 64,
+    width: 64
+  }, 
+  {
+    type: 'block',
+    collision: 'all',
+    left: boundingBoxOffset + boundingBoxWidth + 128,
+    bottom: 0.35*windowHeight + 192,
+    height: 64,
+    width: 64
+  },
+  {
+    type: 'block',
+    collision: 'all',
+    left: boundingBoxOffset + boundingBoxWidth + 256,
+    bottom: 0.35*windowHeight + 192,
+    height: 64,
+    width: 64
+  },
+  {
+    type: 'github',
+    collision: 'all',
+    left: boundingBoxOffset + 0.35*boundingBoxWidth,
+    bottom: 0.2*windowHeight + 192,
+    height: 60,
+    width: 60,
+    html: `<a target="_blank" rel="noopener noreferrer" href="https://github.com/prphntm63"><div style="height:100%;width:100%;"></div></a>`,
+    activate: () => {window.open("https://github.com/prphntm63", '_blank').focus()}
+  },
+  {
+    type: 'linkedin',
+    collision: 'all',
+    left: boundingBoxOffset + 0.35*boundingBoxWidth + 128,
+    bottom: 0.2*windowHeight + 192,
+    height: 60,
+    width: 60,
+    html: `<a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/mattwestwick/"><div style="height:100%;width:100%;"></div></a>`,
+    activate: () => {window.open("https://www.linkedin.com/in/mattwestwick", '_blank').focus()}
+  })
 }
 
 function generateBrewingTitleContent (){
   return `
-  <image src="/images/brewing.png" />
+  <image src="images/brewing.png" />
   `
 }
 
 function generateCodeTitleContent (){
   return `
-  <image src="/images/code_portfolio.png" />
+  <image src="images/code_portfolio.png" />
   `
 }
 
@@ -68,7 +133,7 @@ function generateMessageBox (obstaclesList, screenId = 1, text=""){
     width: 64,
     html: `
       <div 
-        style="height:100%;width:100%;" 
+        style="height:100%;width:100%;cursor:pointer;" 
         onclick="(function(){
           document.getElementById('messageOverlay').classList.add('active');
           document.getElementById('messageBox').classList.add('active');
@@ -247,7 +312,7 @@ function renderBrewingScreenContent (obstaclesList){
                   <div class="stat-block-wrapper">
                     <div class="stat-block">
                       <div class="stat-label">ABV</div>
-                      <div class="stat-value">${tap.recipe.abv}</div>
+                      <div class="stat-value">${parseFloat(tap.recipe.abv).toFixed(1)}</div>
                     </div>
                     <div class="stat-block">
                       <div class="stat-label">OG</div>
@@ -259,11 +324,11 @@ function renderBrewingScreenContent (obstaclesList){
                     </div>
                     <div class="stat-block">
                       <div class="stat-label">SRM</div>
-                      <div class="stat-value">${tap.recipe.srmmorey}</div>
+                      <div class="stat-value">${parseInt(tap.recipe.srmmorey)}</div>
                     </div>
                     <div class="stat-block">
                       <div class="stat-label">IBU</div>
-                      <div class="stat-value">${tap.recipe.ibutinseth}</div>
+                      <div class="stat-value">${parseInt(tap.recipe.ibutinseth)}</div>
                     </div>
                   </div>
                 </div>
@@ -292,7 +357,7 @@ function renderCodeScreenContent (obstaclesList){
       website: "https://github.com/CIA-Homebrew/BJCP-Scoresheet",
       logo: "https://github.com/CIA-Homebrew/BJCP-Scoresheet/blob/master/public/images/bjcp-scoresheets-logo-only.png?raw=true",
       description: "Application for digitally creating, organizing, and distributing scoresheets for homebrewing competitions",
-      color: "#E7F2F8"
+      color: "#049BDA"
     },
     {
       name: "Mashboard",
@@ -300,7 +365,7 @@ function renderCodeScreenContent (obstaclesList){
       website: "https://github.com/prphntm63/mashboard",
       logo: "https://raw.githubusercontent.com/prphntm63/mashboard/master/client/public/favicon.ico",
       description: "Full-stack application for realtime monitoring and control of industrial brewing and distillation equipment",
-      color: "#74BDCB"
+      color: "#ED6C04"
     },
     {
       name: "Headmaster",
@@ -308,15 +373,15 @@ function renderCodeScreenContent (obstaclesList){
       website: "https://github.com/prphntm63/headmaster2",
       logo: "https://github.com/prphntm63/headmaster2/blob/master/client/public/images/headmaster-logo.png?raw=true",
       description: "Full-stack application for software bootcamp student management utilizing Github profiles",
-      color: "#FFA384"
+      color: "#43B233"
     },
     {
       name: "Dynamics",
       source: "https://github.com/prphntm63/dynamics",
       website: "https://matt.westwick.dev",
-      logo: "/images/android-chrome-512x512.png",
+      logo: "images/android-chrome-512x512.png",
       description: "Pure Javascript personal portfolio site with a retro video game flair",
-      color: "#EFE7BC"
+      color: "#e31b04"
     },
   ]
   const positions = [
@@ -349,12 +414,12 @@ function renderCodeScreenContent (obstaclesList){
                   <div class="links-block-wrapper">
                     <div class="link-block">
                       <a href="${repo.source}" title="View Source">
-                        <img width="32px" height="32px" src="/images/code.svg" alt="source code">
+                        <img width="32px" height="32px" src="images/code.svg" alt="source code">
                       </a>
                     </div>
                     <div class="link-block">
                       <a href="${repo.website}" title="Visit Website">
-                        <img width="32px" height="32px" src="/images/web.svg" alt="website">
+                        <img width="32px" height="32px" src="images/web.svg" alt="website">
                       </a>
                     </div>
                   </div>

@@ -1,5 +1,7 @@
 function editLevel(evt) {
-    evt.stopPropagation()
+    if (evt) {
+        evt.stopPropagation()
+    }
 
     if (LEVEL.variables.handlingAnimation) {return}; //Exit function if handling external animation
 
@@ -9,10 +11,6 @@ function editLevel(evt) {
         SPRITE.dom.classList.toggle('sprite-hidden', LEVEL.variables.editingLevel) ;
         document.body.classList.toggle('body-edit', LEVEL.variables.editingLevel)
         document.getElementById('edit-container').classList.remove('hidden')
-        document.getElementById('grid-container').classList.add('hidden')
-
-
-        window.cancelAnimationFrame(LEVEL.constants.animationFrame); //Pause animation when editing level
 
     } else if (!LEVEL.variables.editingLevel) {
         XY.y0v0[0] = parseInt(window.innerHeight + 150);
@@ -20,7 +18,6 @@ function editLevel(evt) {
         SPRITE.dom.classList.toggle('sprite-hidden', LEVEL.variables.editingLevel);
         document.body.classList.toggle('body-edit', LEVEL.variables.editingLevel)
         document.getElementById('edit-container').classList.add('hidden')
-        document.getElementById('grid-container').classList.remove('hidden')
 
         LEVEL.constants.animationFrame = window.requestAnimationFrame(LEVEL.animate); //Resume animation
     }

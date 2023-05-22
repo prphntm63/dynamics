@@ -106,6 +106,7 @@ img {
     background-size: auto 60%;
     overflow: hidden;
     z-index: -1;
+    opacity: 0.85;
 }
 
 @-webkit-keyframes AnimationName {
@@ -185,6 +186,7 @@ img {
     z-index: 999;
     overflow: visible;
     image-rendering: pixelated;
+    bottom: 110vh;
 }
 
 .sprite-hidden {

@@ -46,17 +46,20 @@ function animateSprite () {
         }
     }
 
+    if (x0v0[1] == 0 && keys.bonusKey && !LEVEL.variables.editingLevel) {
+        LEVEL.variables.editLevelFrameTimer += 1
+
+        if (LEVEL.variables.editLevelFrameTimer > LEVEL.constants.editLevelFrameTimerThreshold) {
+            editLevel()
+            LEVEL.variables.editLevelFrameTimer = 0
+        }
+    } else {
+        LEVEL.variables.editLevelFrameTimer = 0
+    }
+
     // Update DOMsprite position in window
     DOMsprite.style.left = x0v0[0] + 'px';
     DOMsprite.style.bottom = y0v0[0] + 'px';
-
-    // Update input keys in window
-    document.getElementById('left').style.backgroundColor = keys.leftKey?'red':'black';
-    document.getElementById('right').style.backgroundColor = keys.rightKey?'red':'black';
-    document.getElementById('up').style.backgroundColor = keys.upKey?'red':'black';
-    document.getElementById('down').style.backgroundColor = keys.downKey?'red':'black';
-    document.getElementById('bonus').style.backgroundColor = keys.bonusKey?'yellow':'black';
-
 }
 
 class blockAnimateClass {

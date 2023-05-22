@@ -30,7 +30,8 @@
         y0v0 : [screen.height*.8,0],
         animationFrame : undefined,
         fpsInterval : 1000 / 60,
-        skyChangeInterval : 60 * 10
+        skyChangeInterval : 60 * 10,
+        editLevelFrameTimerThreshold: 150
     }
 
     LEVEL.variables = {
@@ -50,7 +51,8 @@
         lastGradientIndex : 0,
         goalbarHeight: 0,
         goalbarDirection: 1,
-        goalbarBroken: false
+        goalbarBroken: false,
+        editLevelFrameTimer: 0
     }
 
     window.SPRITE = window.SPRITE || {}
@@ -77,7 +79,7 @@
         let tNow = Date.now()
         elapsed = tNow - tLast
 
-        if (elapsed > LEVEL.constants.fpsInterval) {     
+        if (elapsed > LEVEL.constants.fpsInterval) {    
 
             window.XY.updatePosX(); //Calculate X and Y positions
             window.XY.updatePosY();
@@ -99,8 +101,10 @@
             tLast = tNow - (elapsed % LEVEL.constants.fpsInterval)
         }
 
-        LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Restart animation
-        LEVEL.variables.clock += 1; //Cycle clock
+        if (!LEVEL.variables.editingLevel) {
+            LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Restart animation
+            LEVEL.variables.clock += 1; //Cycle clock
+        }
     }
 
     window.EDIT = window.EDIT || {}
@@ -117,10 +121,6 @@ function main() {
     SPRITE.dom = document.getElementById('sprite');
 
     generateLevel();
-
-    document.getElementById('bonus2').addEventListener('click', editLevel) //Add event handlers
-    document.getElementById('left').addEventListener('click', ANIMATE.scrollScreenLeft)
-    document.getElementById('right').addEventListener('click', ANIMATE.scrollScreenRight)
 
     document.body.addEventListener('keydown', INPUT.keyEvents.keyPress)
     document.body.addEventListener('keyup', INPUT.keyEvents.keyRelease)
@@ -155,7 +155,7 @@ function generateLevel() {
     LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth) + LEVEL.constants.goalpostWidth
     
     renderHtmlInTargetScreen(0, generateMainLogoContent())
-    renderHtmlInTargetScreen(1, generateMattScreenContent(), "bottom")
+    generateAboutMeObstacles(obstacles)
     renderHtmlInTargetScreen(1, generateBioTitleContent(), 15)
     renderHtmlInTargetScreen(2, generateBrewingTitleContent(), 5)
     renderHtmlInTargetScreen(3, generateCodeTitleContent(), 10)
@@ -169,7 +169,6 @@ function generateLevel() {
     renderCodeScreenContent(obstacles)
     generateObstacles();
     generateGoalposts()
-    
 
     document.getElementById('level-container').style.width = parseInt(LEVEL.constants.windowWidth * LEVEL.constants.screens + LEVEL.constants.goalpostWidth + 1) + 'px';
     document.getElementById('background-container').style.width = parseInt(0.75 * LEVEL.constants.windowWidth * LEVEL.constants.screens + 1) + 'px';
