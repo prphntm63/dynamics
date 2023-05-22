@@ -31,13 +31,22 @@
     <title>Super Matt World</title>
 </head>
 <body>
-    <div id="messageOverlay">
-        <div id="messageBox" class="messageBox">
+    <div id="messageOverlay" onclick="document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');window.INPUT.keys.allowInput = true;document.getElementById('formSubmitButton').style.visibility = 'hidden';">
+        <div id="messageBox" class="messageBox" onclick="event.stopPropagation()">
             <div id="messageText" class="messageText"></div>
-            <div 
-                class="messageCloseButton"
-                onclick="document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');"
-            >CLOSE</div>
+            <div style="width:100%;display:flex;flex:row;justify-content:space-evenly;">
+                <div
+                    id="formSubmitButton"
+                    class="messageCloseButton"
+                    onclick="(() => {submitForm()})()"
+                    style="visibility: hidden;"
+                >SUBMIT</div>
+                <div 
+                    class="messageCloseButton"
+                    onclick="event.stopPropagation(); document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');window.INPUT.keys.allowInput=true;document.getElementById('formSubmitButton').style.visibility = 'hidden';"
+                >CLOSE</div>
+            </div>
+            
         </div>
     </div>
 

@@ -16,20 +16,20 @@ function animateSprite () {
 
     DOMsprite.style.backgroundImage = 'url("./sprites/sprites.png")'
     const animateTransition = LEVEL.variables.clock % LEVEL.constants.animateInterval;
-    const walkSprites = ['-256px', '-320px', '-384px', '-448px', '-512px', '-576px']
-    const typeSprites = ['-640px', '-704px']
+    const walkSprites = ['-266px', '-330px', '-394px', '-458px', '-522px', '-586px']
+    const typeSprites = ['-643px', '-707px']
 
     if (keys.downKey) {
-        DOMsprite.style.backgroundPositionX = '-192px';
+        DOMsprite.style.backgroundPositionX = '-202px';
         LEVEL.variables.frame = 0;
     } else if (y0v0[0] > 0 && !LEVEL.variables.onBlock) {
-        DOMsprite.style.backgroundPositionX = '-128px';
+        DOMsprite.style.backgroundPositionX = '-138px';
         LEVEL.variables.frame = 0;
     } else if (y0v0[0] < 0 && !LEVEL.variables.onBlock) {
-        DOMsprite.style.backgroundPositionX = '-64px';
+        DOMsprite.style.backgroundPositionX = '-74px';
         LEVEL.variables.frame = 0;
     } else if ((x0v0[1]>0 && keys.leftKey) || (x0v0[1]<0 && keys.rightKey)) {
-        DOMsprite.style.backgroundPositionX = '-128px';
+        DOMsprite.style.backgroundPositionX = '-138px';
         LEVEL.variables.frame = 0;
     } else if (x0v0[1] == 0 && keys.bonusKey) {
         if (animateTransition == 0) {
@@ -37,7 +37,7 @@ function animateSprite () {
             LEVEL.variables.frame += 1;
         }
     } else if (x0v0[1] == 0) {
-        DOMsprite.style.backgroundPositionX = '0px';
+        DOMsprite.style.backgroundPositionX = '-10px';
         LEVEL.variables.frame = 0;
     }  else {
         if (animateTransition == 0) {
@@ -47,6 +47,7 @@ function animateSprite () {
     }
 
     if (x0v0[1] == 0 && keys.bonusKey && !LEVEL.variables.editingLevel) {
+        DOMsprite.style.width = "60px"
         LEVEL.variables.editLevelFrameTimer += 1
 
         if (LEVEL.variables.editLevelFrameTimer > LEVEL.constants.editLevelFrameTimerThreshold) {
@@ -54,6 +55,7 @@ function animateSprite () {
             LEVEL.variables.editLevelFrameTimer = 0
         }
     } else {
+        DOMsprite.style.width = "48px"
         LEVEL.variables.editLevelFrameTimer = 0
     }
 

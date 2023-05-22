@@ -34,8 +34,9 @@ function checkCollision(spritePos, obstacles) {
                                 preventSideCollision = true;
 
                             } else if ((spritePos.bottom < obstacle.bottom) && (spritePos.top <= Number(obstacle.bottom + XY.y0v0[1] + 1)) ) { //Check for bottom collision
+                                console.log('bottom collision')
                                 // XY.y0v0 = [obstacle.bottom - parseInt(spritePos.height)-2, 0];
-                                if (((obstacle.type == 'block' && !obstacle.used) || obstacle.type == 'brick' || obstacle.type == 'messagebox' || obstacle.type === 'github' || obstacle.type === 'linkedin') && (spritePos.left > obstacle.left - 48 && spritePos.right < obstacle.right + 48 )) {
+                                if (((obstacle.type == 'block' && !obstacle.used) || obstacle.type == 'brick' || obstacle.type == 'messagebox' || obstacle.type === 'github' || obstacle.type === 'linkedin' || obstacle.type === 'mail') && (spritePos.left > obstacle.left - 48 && spritePos.right < obstacle.right + 48 )) {
                                     obstacle.used = true;
                                     let myBlock = new ANIMATE.blockAnimateClass(obstacle)
 
