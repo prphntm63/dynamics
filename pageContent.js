@@ -98,7 +98,7 @@ function generateBioTitleContent (){
 function generateAboutMeObstacles (obstaclesList, screenId = 1) {
   const boundingBoxWidth = 25*Math.round((0.4*parseInt(LEVEL.constants.windowWidth))/25)
   const boundingBoxOffset = 25*Math.round(((screenId * LEVEL.constants.windowWidth) + 0.25*boundingBoxWidth)/25)
-  const windowHeight = window.innerHeight
+  const windowHeight = LEVEL.constants.scaleFactor * window.innerHeight
 
   obstaclesList.push({
     type: 'platform2',
@@ -215,7 +215,6 @@ function generateCodeTitleContent (){
 }
 
 function generateMessageBox (obstaclesList, screenId = 1, text=""){
-  // const boundingBoxWidth = 25*Math.round((0.6*parseInt(LEVEL.constants.windowWidth))/25)
   const totalOffset = 25*Math.round(((screenId * LEVEL.constants.windowWidth) + 0.5*LEVEL.constants.windowWidth - 64)/25)
   const windowHeight = window.innerHeight
 
@@ -318,7 +317,7 @@ function srm_to_hex(srm) {
 function renderBrewingScreenContent (obstaclesList){
   const boundingBoxWidth = 25*Math.round((0.6*parseInt(LEVEL.constants.windowWidth))/25)
   const boundingBoxOffset = 25*Math.round(((2 * LEVEL.constants.windowWidth) + 0.25*boundingBoxWidth)/25)
-  const windowHeight = window.innerHeight
+  const windowHeight = LEVEL.constants.scaleFactor * window.innerHeight
   const minHeight = 25*Math.round(0.3*windowHeight/25)
   const maxHeight = 0.65*windowHeight
   const elementWidth = 250
@@ -443,7 +442,7 @@ function renderBrewingScreenContent (obstaclesList){
 function renderCodeScreenContent (obstaclesList){
   const boundingBoxWidth = 25*Math.round((0.6*parseInt(LEVEL.constants.windowWidth))/25)
   const boundingBoxOffset = 25*Math.round(((3 * LEVEL.constants.windowWidth) + 0.25*boundingBoxWidth)/25)
-  const windowHeight = window.innerHeight
+  const windowHeight = LEVEL.constants.scaleFactor * window.innerHeight
   const elementWidth = 175
   const elementHeight = 300
 

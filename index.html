@@ -4,9 +4,9 @@
 <html lang="en">
 <head>
     <script type="text/javascript">
-        if (screen.width < 1200 || screen.height < 900) {
-          document.location = "https://m.westwick.dev";
-        }
+        // if ((screen.width < 1200 || screen.height < 900) && (window.innerWidth < window.innerHeight)) {
+        //   document.location = "https://m.westwick.dev";
+        // }
         if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
             location.replace("https://m.westwick.dev");
         }
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="obstacles.css">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
-    <script src="keyPress.js"></script>
+    <script src="controller_input.js"></script>
     <script src="dynamics.js"></script>
     <script src="obstacles.js"></script>
     <script src="collision.js"></script>

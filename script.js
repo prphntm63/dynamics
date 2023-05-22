@@ -19,6 +19,7 @@
         animateInterval : 4,
         windowWidth : undefined,
         levelWidth: undefined,
+        scaleFactor: 1,
         goalpostWidth: 500,
         jumpVelocity : 35,
         accelX : 1,
@@ -26,8 +27,8 @@
         accelY : 2,
         maxVeloX : 17,
         maxVeloY : 40,
-        x0v0 : [screen.width/4,0], //Initial position. We want to 'drop down' into the level
-        y0v0 : [screen.height*.8,0],
+        x0v0 : [window.innerWidth/4,0], //Initial position. We want to 'drop down' into the level
+        y0v0 : [screen.height*1.1,0],
         animationFrame : undefined,
         fpsInterval : 1000 / 60,
         skyChangeInterval : 60 * 10,
@@ -151,8 +152,10 @@ function main() {
 };
 
 function generateLevel() {
-    LEVEL.constants.windowWidth = window.innerWidth;
-    LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth) + LEVEL.constants.goalpostWidth
+    LEVEL.constants.scaleFactor = ( window.innerWidth <= 800 || window.innerHeight <= 400) ? 2 : ( window.innerWidth <= 1200 || window.innerHeight <= 600) ? 1.5 : 1
+    console.log(LEVEL.constants.scaleFactor)
+    LEVEL.constants.windowWidth = LEVEL.constants.scaleFactor * window.innerWidth;
+    LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth) + ( LEVEL.constants.scaleFactor * LEVEL.constants.goalpostWidth )
     
     renderHtmlInTargetScreen(0, generateMainLogoContent())
     generateAboutMeObstacles(obstacles)

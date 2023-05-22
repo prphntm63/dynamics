@@ -238,7 +238,7 @@ img {
     z-index: 999;
     overflow: visible;
     image-rendering: pixelated;
-    bottom: 110vh;
+    bottom: 200vh; 
 }
 
 .sprite-hidden {
@@ -404,7 +404,22 @@ img {
     margin: 3px;
 }
 
-/* @media only screen and (max-height: 500px) {
+@media only screen and (1200px >= width >= 800px), (600px >= width >= 400px)   {
+    body {
+        zoom: 0.66;
+        -moz-transform: scale(0.66);
+    }
+
+    #background-container {
+        height: 150vh;
+    }
+
+    #level-container {
+        height: 150vh;
+    }
+}
+
+@media only screen and (max-width: 800px), (max-height: 400px)  {
     body {
         zoom: 0.5;
         -moz-transform: scale(0.5);
@@ -417,4 +432,4 @@ img {
     #level-container {
         height: 200vh;
     }
-} */
+}
