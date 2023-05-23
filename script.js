@@ -153,7 +153,6 @@ function main() {
 
 function generateLevel() {
     LEVEL.constants.scaleFactor = ( window.innerWidth <= 800 || window.innerHeight <= 400) ? 2 : ( window.innerWidth <= 1200 || window.innerHeight <= 600) ? 1.5 : 1
-    console.log(LEVEL.constants.scaleFactor)
     LEVEL.constants.windowWidth = LEVEL.constants.scaleFactor * window.innerWidth;
     LEVEL.constants.levelWidth = parseInt(LEVEL.constants.screens*LEVEL.constants.windowWidth) + ( LEVEL.constants.scaleFactor * LEVEL.constants.goalpostWidth )
     
