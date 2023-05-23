@@ -450,7 +450,7 @@ function renderCodeScreenContent (obstaclesList){
     {
       name: "BJCP Scoresheets",
       source: "https://github.com/CIA-Homebrew/BJCP-Scoresheet",
-      website: "https://github.com/CIA-Homebrew/BJCP-Scoresheet",
+      website: "https://scoresheets.org",
       logo: "https://github.com/CIA-Homebrew/BJCP-Scoresheet/blob/master/public/images/bjcp-scoresheets-logo-only.png?raw=true",
       description: "Application for digitally creating, organizing, and distributing scoresheets for homebrewing competitions",
       color: "#049BDA"
@@ -509,12 +509,12 @@ function renderCodeScreenContent (obstaclesList){
                 <div style="width: 100%">
                   <div class="links-block-wrapper">
                     <div class="link-block">
-                      <a href="${repo.source}" title="View Source">
+                      <a target="_blank" rel="noopener noreferrer" href="${repo.source}" title="View Source">
                         <img width="32px" height="32px" src="images/code.svg" alt="source code">
                       </a>
                     </div>
                     <div class="link-block">
-                      <a href="${repo.website}" title="Visit Website">
+                      <a target="_blank" rel="noopener noreferrer" href="${repo.website}" title="Visit Website">
                         <img width="32px" height="32px" src="images/web.svg" alt="website">
                       </a>
                     </div>

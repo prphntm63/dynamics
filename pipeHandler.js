@@ -23,6 +23,7 @@ function handlePipe() {
     let pipeCenter = parseInt(LEVEL.variables.currentPipe[0].left) + parseInt(LEVEL.variables.currentPipe[0].width)/2 - 32;
 
     if (LEVEL.variables.animationCase == 0) {
+        // Align with pipe
         if (parseInt(DOMsprite.style.left) > pipeCenter + 5) {
             XY.x0v0 = [XY.x0v0[0]-3,0];
             ANIMATE.animateSprite();
@@ -41,12 +42,14 @@ function handlePipe() {
             }
         }
     } else if (LEVEL.variables.animationCase == 1) {
+        // Go into pipe
         XY.x0v0[0] = parseInt(LEVEL.variables.outputPipe[0].left) + parseInt(LEVEL.variables.outputPipe[0].width)/2 - 32;
         XY.y0v0 = [parseInt(LEVEL.variables.outputPipe[0].height) - 125, 0];
         ANIMATE.animateSprite();
         LEVEL.variables.counter = 125;
         LEVEL.variables.animationCase = 2;
     } else if (LEVEL.variables.animationCase == 2) {
+        // Scroll to screen
         let levelContainer = document.getElementById('level-container');
         let backgroundContainer = document.getElementById('background-container');
         let mapDiv = levelContainer.getBoundingClientRect();
@@ -71,6 +74,7 @@ function handlePipe() {
             }
         }
     } else if (LEVEL.variables.animationCase == 3) {
+        // Come out of pipe
         if (LEVEL.variables.counter > 0) {
             XY.y0v0 = [(parseInt(Number(LEVEL.variables.outputPipe[0].height) + Number(LEVEL.variables.outputPipe[0].bottom) - LEVEL.variables.counter)), 0];
             ANIMATE.animateSprite();

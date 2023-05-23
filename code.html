@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <script type="text/javascript">
+        // if ((screen.width < 1200 || screen.height < 900) && (window.innerWidth < window.innerHeight)) {
+        //   document.location = "https://m.westwick.dev";
+        // }
+        if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+            location.replace("https://m.westwick.dev");
+        }
+    </script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="manifest" href="site.webmanifest">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="clouds.css">
+    <link rel="stylesheet" href="obstacles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="controller_input.js"></script>
+    <script src="dynamics.js"></script>
+    <script src="obstacles.js"></script>
+    <script src="collision.js"></script>
+    <script src="animateSprite.js"></script>
+    <script src="scroll.js"></script>
+    <script src="pipeHandler.js"></script>
+    <script src="editLevel.js"></script>
+    <script src="pageContent.js"></script>
+    
+    <title>Super Matt World</title>
+</head>
+<body>
+    <div id="messageOverlay" onclick="document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');window.INPUT.keys.allowInput = true;document.getElementById('formSubmitButton').style.visibility = 'hidden';">
+        <div id="messageBox" class="messageBox" onclick="event.stopPropagation()">
+            <div id="messageText" class="messageText"></div>
+            <div style="width:100%;display:flex;flex:row;justify-content:space-evenly;">
+                <div
+                    id="formSubmitButton"
+                    class="messageCloseButton"
+                    onclick="(() => {submitForm()})()"
+                    style="visibility: hidden;"
+                >SUBMIT</div>
+                <div 
+                    class="messageCloseButton"
+                    onclick="event.stopPropagation(); document.getElementById('messageOverlay').classList.remove('active'); document.getElementById('messageBox').classList.remove('active');window.INPUT.keys.allowInput=true;document.getElementById('formSubmitButton').style.visibility = 'hidden';"
+                >CLOSE</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id = 'background-container'>
+        <div id='level-container'>
+            <div class='sprite' id='sprite'></div>
+        </div>
+        <div id="scenery-container"></div>
+        <div id="background-wrap">
+            <div class="x1">
+                <div class="cloud"></div>
+            </div>
+            <div class="x2">
+                <div class="cloud"></div>
+            </div>
+            <div class="x3">
+                <div class="cloud"></div>
+            </div>
+            <div class="x4">
+                <div class="cloud"></div>
+            </div>
+            <div class="x5">
+                <div class="cloud"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class='edit-container hidden' id='edit-container'>
+        <div>
+            <h2>Editing...</h2>
+            <button id="done-editing-button" style="height:25px">Done</button>
+        </div>
+        <div>
+            <div class='edit-sample block selected' id='edit-block'></div>
+            <div class='edit-sample platform' id='edit-platform'></div>
+            <div class='edit-sample platform2' id='edit-platform2'></div>
+            <div class='edit-sample brick' id='edit-brick'></div>
+        </div>
+    </div>
+
+    <script>
+        if (window.devicePixelRatio !== 1) {
+            document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio));
+
+            const currentZoom = document.body.style.zoom
+            document.body.style.zoom = (parseInt(currentZoom) | 1) * (1/window.devicePixelRatio)
+        }
+
+
+        window.onload = main();
+    </script>
+    
+</body>
+</html>

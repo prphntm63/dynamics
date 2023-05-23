@@ -81,7 +81,6 @@
         elapsed = tNow - tLast
 
         if (elapsed > LEVEL.constants.fpsInterval) {    
-
             window.XY.updatePosX(); //Calculate X and Y positions
             window.XY.updatePosY();
 
@@ -105,6 +104,18 @@
         if (!LEVEL.variables.editingLevel) {
             LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Restart animation
             LEVEL.variables.clock += 1; //Cycle clock
+        }
+
+        // Update navbar path based on current screen
+        const pagePaths = ['/', '/bio', '/brew', '/code']
+        const currentPath = window.location.pathname
+        const currentScreen = Math.floor(XY.x0v0[0] / LEVEL.constants.windowWidth)
+        if (currentScreen < 0 ) {
+            window.history.pushState({}, "", window.location.origin + '/' )
+        } else if (currentScreen >= pagePaths.length) {
+            window.history.pushState({}, "", window.location.origin + pagePaths[pagePaths.length - 1] )
+        } else if (pagePaths[currentScreen] !== currentPath) {
+            window.history.pushState({}, "", window.location.origin + pagePaths[currentScreen] )
         }
     }
 
@@ -145,6 +156,28 @@ function main() {
     document.getElementById('edit-platform2').addEventListener('mousedown', selectPlatform2)
     document.getElementById('edit-brick').addEventListener('mousedown', selectBrick)
     document.getElementById('done-editing-button').addEventListener('mousedown', editLevel)
+
+    // Check which page we are on and start on the proper screen
+    let levelContainer = document.getElementById('level-container');
+    let backgroundContainer = document.getElementById('scenery-container');
+    const pagePaths = ['/bio', '/brew', '/code']
+    const selectedPageIndex = pagePaths.indexOf(window.location.pathname)
+    if (selectedPageIndex >= 0) {
+        const offset = parseInt(-1*((1+selectedPageIndex) * LEVEL.constants.scaleFactor * window.innerWidth))
+        levelContainer.style.left = offset + 'px'
+        backgroundContainer.style.left = parseInt(0.5*offset) + 'px'
+
+        const pipeNumber = (selectedPageIndex + 2)*10 + (selectedPageIndex + 2)
+        const navPipe = obstacles.find(obstacle => obstacle.input === pipeNumber && obstacle.output === pipeNumber)
+        const pipeCenter = parseInt(navPipe.left) + parseInt(navPipe.width)/2 - 32;
+
+        XY.x0v0 = [pipeCenter,0]
+        XY.y0v0 = [navPipe.height-125,0]
+
+        LEVEL.variables.handlingAnimation = pipeNumber
+        LEVEL.variables.counter = 64
+        LEVEL.variables.animationCase = 3
+    }
     
     setTimeout(function() { //Wait 200ms to start to avoid lag
         LEVEL.constants.animationFrame = requestAnimationFrame(LEVEL.animate); //Start the animation
