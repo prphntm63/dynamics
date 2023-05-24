@@ -89,6 +89,7 @@ function generateBioTitleContent (){
       height="16" 
       src="textures/message_box.png" 
       onclick="obstacles.find(obstacle => obstacle.screenId === 1)?.activate()"
+      alt="more information"
     /> 
     to learn more! )
   </span>
@@ -209,6 +210,7 @@ function generateBrewingTitleContent (){
       height="16" 
       src="textures/message_box.png" 
       onclick="obstacles.find(obstacle => obstacle.screenId === 2)?.activate()"
+      alt="Brewing"
     /> 
     to learn more! )
   </span>
@@ -225,6 +227,7 @@ function generateCodeTitleContent (){
       height="16" 
       src="textures/message_box.png" 
       onclick="obstacles.find(obstacle => obstacle.screenId === 3)?.activate()"
+      alt="Code"
     /> 
     to learn more! )
   </span>
@@ -539,12 +542,12 @@ function renderCodeScreenContent (obstaclesList){
                   <div class="links-block-wrapper">
                     <div class="link-block">
                       <a target="_blank" rel="noopener noreferrer" href="${repo.source}" title="View Source">
-                        <img width="32px" height="32px" src="images/code.svg" alt="source code">
+                        <img width="32px" height="32px" src="images/code.svg" alt="source code link">
                       </a>
                     </div>
                     <div class="link-block">
                       <a target="_blank" rel="noopener noreferrer" href="${repo.website}" title="Visit Website">
-                        <img width="32px" height="32px" src="images/web.svg" alt="website">
+                        <img width="32px" height="32px" src="images/web.svg" alt="website link">
                       </a>
                     </div>
                   </div>
