@@ -333,7 +333,7 @@ img {
 
 .tap-title-text {
     font-size: 14px;
-    margin: 4px 4px 0 0;
+    margin: 6px 4px 0 0;
 }
 
 .tap-style-text {
@@ -377,7 +377,7 @@ img {
     margin-top: 5px;
   }
 
-  .tap-title-text {
+  .repo-title-text {
     font-size: 14px;
     padding: 4px 6px;
 }

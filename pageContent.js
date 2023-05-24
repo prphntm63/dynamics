@@ -354,7 +354,11 @@ function renderBrewingScreenContent (obstaclesList){
         bottom: positions[1][tap > 3 ? 1 : 0],
         height: elementHeight,
         width: elementWidth,
-        html: `<div id=tap-${tap} style="height:100%;"></div>`
+        html: `
+          <div id=tap-${tap} style="height:100%;">
+            <div style="width:100%;height:100%;text-align:center;margin-top: 20px;">Loading...</div>
+          </div>
+        `
     })
   })
 
@@ -401,7 +405,7 @@ function renderBrewingScreenContent (obstaclesList){
             <div style="padding: 10px 15px;">
               <div class="tap-text">${tapId}</div>
             </div>
-            <div style="display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;flex-direction:column;justify-content:space-between;margin-top:20px;">
                 <div>
                   <div class="tap-title-text">Empty :(</div>
                   <span class="tap-style-text">Check back soon!</span>
