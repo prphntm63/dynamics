@@ -484,12 +484,20 @@ function renderCodeScreenContent (obstaclesList){
       description: "Full-stack application for realtime monitoring and control of industrial brewing and distillation equipment",
       color: "#ED6C04"
     },
+    // {
+    //   name: "Headmaster",
+    //   source: "https://github.com/prphntm63/headmaster2",
+    //   website: "https://github.com/prphntm63/headmaster2",
+    //   logo: "https://github.com/prphntm63/headmaster2/blob/master/client/public/images/headmaster-logo.png?raw=true",
+    //   description: "Full-stack application for software bootcamp student management utilizing Github profiles",
+    //   color: "#43B233"
+    // },
     {
-      name: "Headmaster",
-      source: "https://github.com/prphntm63/headmaster2",
-      website: "https://github.com/prphntm63/headmaster2",
-      logo: "https://github.com/prphntm63/headmaster2/blob/master/client/public/images/headmaster-logo.png?raw=true",
-      description: "Full-stack application for software bootcamp student management utilizing Github profiles",
+      name: "Mondrian",
+      source: "https://github.com/prphntm63/mondrian",
+      website: "https://prphntm63.github.io/mondrian/",
+      logo: "https://raw.githubusercontent.com/prphntm63/mondrian/master/favicon.ico",
+      description: "Mondrian-esque random art generator",
       color: "#43B233"
     },
     {
@@ -510,7 +518,7 @@ function renderCodeScreenContent (obstaclesList){
 
   repos.forEach((repo, idx) => {
     obstaclesList.push({
-        type: 'platform',
+        type: 'platform2',
         collision: 'top',
         left : positions[idx],
         bottom: 25*Math.round(0.35*windowHeight/25),
@@ -521,7 +529,7 @@ function renderCodeScreenContent (obstaclesList){
             <div style="display:flex;height:100%;background-color:${repo.color || "#333"}">
               <div class="repo-content-wrapper">
                 <div class="repo-logo-wrapper">
-                  <img width="85px" height="85px" src="${repo.logo}" alt="repo logo">
+                  <img src="${repo.logo}" alt="repo logo">
                 </div>
                 <div class="repo-text">
                   <div class="repo-title-text">${repo.name}</div>
