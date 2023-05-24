@@ -46,9 +46,11 @@
 .github {
     background: url('./textures/github.png');
     background-position: center center;
-    background-color: #eee;
+    background-color: #ccc;
     border: 2px solid black;
-    background-size: 64px;
+    background-size: 56px;
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
     padding: 0px;
     margin: 0px;
     border-radius: 5px;
@@ -63,7 +65,9 @@
     background-position: center center;
     background-color: #bbb;
     border: 2px solid black;
-    background-size: 64px;
+    background-size: 56px;
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
     padding: 0px;
     margin: 0px;
     border-radius: 5px;
@@ -76,9 +80,11 @@
 .mail {
     background: url('./textures/mail.png');
     background-position: center center;
-    background-color: #bbb;
+    background-color: #eee;
     border: 2px solid black;
-    background-size: 64px;
+    background-size: 56px;
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
     padding: 0px;
     margin: 0px;
     border-radius: 5px;

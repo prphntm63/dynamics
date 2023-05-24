@@ -123,8 +123,16 @@ function generateAboutMeObstacles (obstaclesList, screenId = 1) {
     bottom: 0.35*windowHeight + 192,
     height: 60,
     width: 60,
-    html: `<a target="_blank" rel="noopener noreferrer" href="https://github.com/prphntm63"><div style="height:100%;width:100%;"></div></a>`,
-    activate: () => {window.open("https://github.com/prphntm63", '_blank').focus()}
+    html: `<a title="Github" target="_blank" rel="noopener noreferrer" href="https://github.com/prphntm63"><div style="height:100%;width:100%;"></div></a>`,
+    activate: () => {
+      setTimeout(() => {
+        const confirmNav = window.confirm("Do you want to open my Github profile in a new tab?")
+        if (confirmNav) {
+          window.open("https://github.com/prphntm63", '_blank').focus()
+        }
+        INPUT.keyEvents.resetKeys()
+      }, 150)
+    }
   },
   {
     type: 'linkedin',
@@ -133,8 +141,16 @@ function generateAboutMeObstacles (obstaclesList, screenId = 1) {
     bottom: 0.35*windowHeight + 192,
     height: 60,
     width: 60,
-    html: `<a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/mattwestwick/"><div style="height:100%;width:100%;"></div></a>`,
-    activate: () => {window.open("https://www.linkedin.com/in/mattwestwick", '_blank').focus()}
+    html: `<a title="LinkedIn" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/mattwestwick/"><div style="height:100%;width:100%;"></div></a>`,
+    activate: () => {
+      setTimeout(() => {
+        const confirmNav = window.confirm("Do you want to open my LinkedIn profile in a new tab?")
+        if (confirmNav) {
+          window.open("https://www.linkedin.com/in/mattwestwick", '_blank').focus()
+        }
+        INPUT.keyEvents.resetKeys()
+      }, 150)
+    }
   },
   {
     type: 'mail',
@@ -145,6 +161,7 @@ function generateAboutMeObstacles (obstaclesList, screenId = 1) {
     width: 60,
     html: `
       <div 
+        title="Contact"
         style="height:100%;width:100%;cursor:pointer;" 
         onclick="(function(){
           document.getElementById('messageOverlay').classList.add('active');

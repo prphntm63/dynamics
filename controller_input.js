@@ -1,7 +1,14 @@
 ;(function () {
 
-    function helper() {
-
+    function resetKeys() {
+        window.INPUT.keys = {
+            ...window.INPUT.keys,
+            leftKey: false,
+            rightKey: false,
+            upKey: false,
+            downKey: false,
+            bonusKey: false
+        }
     }
 
     function keyPress(event) {
@@ -46,5 +53,6 @@
     INPUT.keyEvents = {};
     INPUT.keyEvents.keyPress = keyPress;
     INPUT.keyEvents.keyRelease = keyRelease;
+    INPUT.keyEvents.resetKeys = resetKeys
 
 })()
