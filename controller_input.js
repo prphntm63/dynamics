@@ -12,6 +12,14 @@
     }
 
     function keyPress(event) {
+        // Pressing escape key should close the message box
+        if (event.key === 'Escape' && document.getElementById('messageOverlay').classList.contains('active')) {
+            document.getElementById('messageOverlay').classList.remove('active')
+            document.getElementById('messageBox').classList.remove('active')
+            document.getElementById('formSubmitButton').style.visibility = 'hidden'
+            window.INPUT.keys.allowInput=true
+        }
+
         if (window.INPUT.keys.allowInput) {
             if ((event.key === 'a')||(event.key === 'A')||(event.key === 'ArrowLeft')) {
                 window.INPUT.keys.leftKey = true;
