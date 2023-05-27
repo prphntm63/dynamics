@@ -560,6 +560,22 @@ function renderCodeScreenContent (obstaclesList){
   })
 }
 
+function generateArrowSigns (){
+  const numScreens = LEVEL.constants.screens
+  const windowWidth = LEVEL.constants.windowWidth
+
+  for (let currentScreen=1; currentScreen<=numScreens; currentScreen++) {
+    const offset = Math.round(currentScreen*windowWidth) - 48
+    const arrowSign = document.createElement("div")
+    arrowSign.classList.add("arrow-sign")
+    arrowSign.style.left = offset + "px"
+    arrowSign.style.bottom = "35px"
+
+    document.getElementById('level-container').appendChild(arrowSign)
+  }
+
+}
+
 function generateGoalposts (){
   const offset = (LEVEL.constants.screens * LEVEL.constants.windowWidth) + 200
   LEVEL.variables.goalpost = {
@@ -570,7 +586,7 @@ function generateGoalposts (){
   const goalpostDiv = document.createElement("div")
   goalpostDiv.classList.add("goalpost")
   goalpostDiv.style.left = offset + "px"
-  goalpostDiv.style.bottom = "0px"
+  goalpostDiv.style.bottom = "35px"
 
   goalpostDiv.innerHTML = `
   <img id="goalpost" src="textures/goalposts.png" style="height:576px;"/>

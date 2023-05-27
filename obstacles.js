@@ -2,9 +2,9 @@ obstacles = [
     {
         type: 'floor',
         left : '0',
-        bottom: '-40',
+        bottom: '-10',
         height: '50',
-        width: '10000'
+        width: '100000'
     }
 ]
 
@@ -185,7 +185,7 @@ function generateNavPipes(obstacleList) {
                 collision: 'all',
                 left: `${i*LEVEL.constants.windowWidth + .3*pipesWidth + j*pipesOffset - 70}`,
                 bottom: '0',
-                height: '100',
+                height: '140',
                 width: '140',
                 color: (i === j) ? 'blue' : 'gray'
             }

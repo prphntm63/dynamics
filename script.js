@@ -151,6 +151,13 @@ function main() {
     //     }
     // })
 
+    // Force reload on resize, but delay for 100ms to prevent infinite loop in chrome device emulator
+    setTimeout(() => {
+        window.addEventListener('resize', (evt) => {
+            window.location.reload()
+        })
+    }, 100)
+
     document.getElementById('edit-block').addEventListener('mousedown', selectBlock)
     document.getElementById('edit-platform').addEventListener('mousedown', selectPlatform)
     document.getElementById('edit-platform2').addEventListener('mousedown', selectPlatform2)
@@ -203,6 +210,7 @@ function generateLevel() {
     renderBrewingScreenContent(obstacles)
     renderCodeScreenContent(obstacles)
     generateObstacles();
+    generateArrowSigns()
     generateGoalposts()
 
     document.getElementById('level-container').style.width = parseInt(LEVEL.constants.windowWidth * LEVEL.constants.screens + LEVEL.constants.goalpostWidth + 1) + 'px';
