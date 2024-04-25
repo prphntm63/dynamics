@@ -280,7 +280,7 @@ function doubleToHex(d) {
   return hexText;
 }
 
-function srm_to_hex(srm) {
+function srm_to_hex(srm, alpha = 1) {
   // Returns an RGB value based on SRM
   let r = 0,
     g = 0,
@@ -332,6 +332,7 @@ function srm_to_hex(srm) {
   const green = doubleToHex(g);
   const blue = doubleToHex(b);
   return "#" + red + green + blue;
+  // return `rgba(${r}, ${g}, ${b}, ${alpha})`
 };
 
 function renderBrewingScreenContent (obstaclesList){
@@ -406,7 +407,7 @@ function renderBrewingScreenContent (obstaclesList){
           html = `
           <div style="display:flex;height:100%;">
             <div style="padding: 10px 15px;">
-              <div class="tap-text">${tapId}</div>
+              ${tapId == 5 ? '<div class="tap-text">F1</div>' : tapId == 6 ? '<div class="tap-text">F2</div>' : '<div class="tap-text">' + tapId + '</div>'}
             </div>
             <div style="display:flex;flex-direction:column;justify-content:space-between;margin-top:20px;">
                 <div>
@@ -421,12 +422,13 @@ function renderBrewingScreenContent (obstaclesList){
           <a target="_blank" rel="noopener noreferrer" href="https://www.brewersfriend.com/homebrew/recipe/view/${tap.recipe.id}">
             <div style="display:flex;height:100%;background-color:${srm_to_hex(Number(tap.recipe.srmmorey))};color:${Number(tap.recipe.srmmorey)>10 ? '#fff' : '#000'}">
               <div style="padding: 10px 15px;">
-                <div class="tap-text">${tapId}</div>
+                ${tapId == 5 ? '<div class="tap-text">F1</div>' : tapId == 6 ? '<div class="tap-text">F2</div>' : '<div class="tap-text">' + tapId + '</div>'}
               </div>
               <div style="display:flex;flex-direction:column;justify-content:space-between;">
                 <div>
                   <div class="tap-title-text">${tap.recipe.title}</div>
                   <span class="tap-style-text">${tap.recipe.stylename}</span>
+                  ${tapId == 5 || tapId == 6 ? '<div class="tap-style-text" style="margin-top: 15px; padding: 4px; border: 1px solid black; text-align: center; max-width: 150px; background-color: rgba(0,0,0,0.2);">Fermenting</div>' : ''}
                 </div>
                 <div>
                   <div class="stat-block-wrapper">
