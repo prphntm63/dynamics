@@ -111,18 +111,18 @@
         </div>
     </div>
 
-<!--     This doesn't work -->
-<!--     <script>
-        if (window.devicePixelRatio !== 1) {
-            document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio));
+    <script>
+        // // This doesn't work - fix device pixel scaling issue later
+        // if (window.devicePixelRatio !== 1) {
+        //     document.querySelector("meta[name=viewport]").setAttribute('content', 'width=device-width, initial-scale='+(1/window.devicePixelRatio));
 
-            const currentZoom = document.body.style.zoom
-            document.body.style.zoom = (parseInt(currentZoom) | 1) * (1/window.devicePixelRatio)
-        }
+        //     const currentZoom = document.body.style.zoom
+        //     document.body.style.zoom = (parseInt(currentZoom) | 1) * (1/window.devicePixelRatio)
+        // }
 
 
         window.onload = main();
-    </script> -->
+    </script>
     
 </body>
 </html>
